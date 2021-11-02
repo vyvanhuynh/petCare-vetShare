@@ -20,8 +20,8 @@ class User(db.Model):
     admin_status = db.Column(db.Boolean)
 
     # vet = a list of Vet objects
-    # question = a list of Question objects
-    # vote = a list of Vote objects
+    # questions = a list of Question objects
+    # votes = a list of Vote objects
 
     def __repr__(self):
         return f"<User user_id={self.user_id} email={self.email}>"
@@ -29,7 +29,7 @@ class User(db.Model):
 
 
 class Vet(db.Model):
-    """A vet."""
+    """A user who is also a vet."""
 
     __tablename__ = "vets"
 
@@ -41,8 +41,8 @@ class Vet(db.Model):
     license_number = db.Column(db.Integer)
     verification_status = db.Column(db.String)
 
-    user = db.relationship("User", backref = "vet")
-    # answer = a list of Answer objects
+    user = db.relationship("User", backref = "vet", uselist = False)
+    # answers = a list of Answer objects
 
     def __repr__(self):
         return f"<Vet user_id={self.user_id} last_name={self.last_name}>"
@@ -63,9 +63,9 @@ class Question(db.Model):
     question_body = db.Column(db.Text)
     vote_count = db.Column(db.Integer)
 
-    user = db.relationship("User", backref = "question")
-    # answer = a list of Answer objects
-    # vote = a list of Vote objects
+    user = db.relationship("User", backref = "questions")
+    # answers = a list of Answer objects
+    # votes = a list of Vote objects
 
     def __repr__(self):
         return f"<Question question_id={self.question_id} question_body={self.question_body}>"
@@ -85,8 +85,8 @@ class Answer(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("vets.user_id"))
     answer_body = db.Column(db.Text)
 
-    vet = db.relationship("Vet", backref = "answer")
-    question = db.relationship("Question", backref = "answer")
+    vet = db.relationship("Vet", backref = "answers")
+    question = db.relationship("Question", backref = "answers")
 
     def __repr__(self):
         return f"<Answer answer_id={self.answer_id} answer_body={self.answer_body}>"
@@ -104,8 +104,8 @@ class Vote(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey("questions.question_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
-    user = db.relationship("User", backref = "vote")
-    question = db.relationship("Question", backref = "vote")
+    user = db.relationship("User", backref = "votes")
+    question = db.relationship("Question", backref = "votes")
 
     def __repr__(self):
         return f"<Vote vote_id={self.vote_id} question_id={self.question_id}>"
