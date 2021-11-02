@@ -1,7 +1,7 @@
 """Models for pet care app."""
 
 from flask_sqlalchemy import SQLAlchemy
-from datetime import date
+
 
 db = SQLAlchemy()
 
@@ -57,7 +57,7 @@ class Question(db.Model):
     question_id = db.Column(db.Integer,
                             autoincrement = True,
                             primary_key = True)
-    date_created = db.Column(db.Date)
+    date_created = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     comment_count = db.Column(db.Integer)
     question_body = db.Column(db.Text)
@@ -74,13 +74,13 @@ class Question(db.Model):
 
 class Answer(db.Model):
     """An answer made by a veterinarian in response to a question."""
-
+    
     __tablename__ = "answers"
 
     answer_id = db.Column(db.Integer,
                         autoincrement = True,
                         primary_key = True)
-    date_created = db.Column(db.Date)
+    date_created = db.Column(db.DateTime)
     question_id = db.Column(db.Integer, db.ForeignKey("questions.question_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("vets.user_id"))
     answer_body = db.Column(db.Text)
