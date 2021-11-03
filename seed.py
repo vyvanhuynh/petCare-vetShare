@@ -5,6 +5,7 @@ from random import choice, randint
 import model, server, crud
 import os
 
+
 os.system('dropdb petdiscussions')
 os.system('createdb petdiscussions')
 
@@ -38,9 +39,7 @@ for user in users_ls:
 
 
 
-
-
-# Create questions and answer; store each in a list 
+# Create questions and answers; store each in a list 
 question_content_ls = ["What do bunnies eat?", 
                     "Can dog eat chocolate?", 
                     "Can bunnies eat fruits?",
@@ -73,13 +72,13 @@ for question in question_content_ls:
     db_question = crud.create_question(date_created,comment_count,question_body,vote_count,user)
     questions_in_db.append(db_question)
 
-    answers_in_db = []
-
+answers_in_db = []
 for answer in answer_content_ls:
     date_created = datetime.now()
     answer_body = answer
     vet = choice(vets_ls)
-    question = db_question #pointing to the last question
+    question = choice(questions_in_db) #not responding to the right question in order
 
     db_answer = crud.create_answer(date_created,answer_body,vet,question)
+    answers_in_db.append(db_answer)
 
