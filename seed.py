@@ -1,12 +1,48 @@
-""" facilitate a database setup instead of manually 
+""" Facilitate a database setup instead of manually 
     typing commands each time we have new data to seed the database """
-from datetime import date
+from datetime import datetime
 from random import choice, randint
-import model, server
+import model, server, crud
+import os
+
+os.system('dropdb petdiscussions')
+os.system('createdb petdiscussions')
 
 model.connect_to_db(server.app)
 model.db.create_all()
 
+
+# Create 10 users and store them in a list
+users_ls = []
+for n in range(10):
+    email = f'user{n}@test.com'  
+    password = f'test{n}'
+    vet_status = choice([True,False])
+    admin_status = choice([True,False])
+
+    db_user = crud.create_user(email, password, vet_status, admin_status)
+    users_ls.append(db_user)
+
+
+# Create questions and store them in a list 
+question_content_ls = ["What do bunnies eat?", 
+                    "Can dog eat chocolate?", 
+                    "Can bunnies eat fruits?",
+                    "Should I bath my bunny?",
+                    "How long do cats live?",
+                    "Can bunnies be potty trained?",
+                    "How often should I bath my dog?",
+                    "What does catnip do to cats?",
+                    "How often should I walk my dog?",
+                    "Do all bunnies need bondmate?"]
+
 questions_in_db = []
-for question in questions_in_db:
-    date_created = question[date_created]
+for question in question_content_ls:
+    date_created = datetime.now()
+    comment_count = randint(1,10)
+    question_body = question
+    vote_count = randint(1,10)
+    user = choice(users_ls)
+
+    db_question = crud.create_question(date_created,comment_count,question_body,vote_count,user)
+    questions_in_db.append(db_question)
