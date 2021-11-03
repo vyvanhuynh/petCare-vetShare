@@ -62,23 +62,24 @@ answer_content_ls = ["Bunnies eat hay, veggies and hay based pellets",
                     "Daily brushing is most ideal",
                     "Most of them prefer to be in pairs but some do fine being alone"]
 
-questions_in_db = []
-answers_in_db = []
+
 for question,answer in zip(question_content_ls,answer_content_ls):
+
+    # Create 10 questions
     date_created = datetime.now()
     comment_count = randint(1,10)
     question_body = question
     vote_count = randint(1,10)
     user = choice(users_ls)
-
     db_question = crud.create_question(date_created,comment_count,question_body,vote_count,user)
-    questions_in_db.append(db_question)
+    
 
+    # Create 10 according answers
     date_created = datetime.now()
     answer_body = answer
     vet = choice(vets_ls)
     question = db_question 
     db_answer = crud.create_answer(date_created,answer_body,vet,question)
-    answers_in_db.append(db_answer)
+    
 
 

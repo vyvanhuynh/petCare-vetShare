@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Pet Care Discussion Home{% endblock %}
+
+{% block body %}
+
+    <h1>Welcome to the Pet Care Discussion Site!</h1>
+
+    <h3>Don't have an acount? Please click here to register:
+        <a href="/register">Register</a>
+    </h3>
+
+    <h2>Already have an acount? Let's log in</h2>
+    <form action="/login" method="POST">
+        <p>
+            Email <input type="text" name="email">
+        </p>
+
+        <p>
+            Password <input type="password" name="password">
+        </p>
+
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+
+{% endblock %}

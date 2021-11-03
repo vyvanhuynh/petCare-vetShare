@@ -16,9 +16,11 @@ def create_user(email, password, vet_status, admin_status):
 
     return user
 
-
 def list_all_users():
     return User.query.all()
+
+def get_user_by_email(email):
+    return User.query.filter(User.email == email).first()
 
 
 def create_vet(last_name,license_type,license_number,verification_status,user):
@@ -34,7 +36,6 @@ def create_vet(last_name,license_type,license_number,verification_status,user):
     db.session.commit()
 
     return vet
-
 
 def list_all_vets():
     return Vet.query.all()
@@ -54,7 +55,6 @@ def create_question(date_created, comment_count, question_body, vote_count,user)
 
     return question
 
-
 def list_all_questions():
     return Question.query.all()
 
@@ -71,7 +71,6 @@ def create_answer(date_created, answer_body, vet, question):
     db.session.commit()
 
     return answer
-
 
 def list_all_answers():
     return Answer.query.all()

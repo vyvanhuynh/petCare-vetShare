@@ -1,4 +1,4 @@
-"""Models for pet care app."""
+""" Models for pet care app. """
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -57,7 +57,7 @@ class Question(db.Model):
     question_id = db.Column(db.Integer,
                             autoincrement = True,
                             primary_key = True)
-    date_created = db.Column(db.DateTime)
+    date_created = db.Column(db.DateTime) #format date
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     comment_count = db.Column(db.Integer)
     question_body = db.Column(db.Text)
