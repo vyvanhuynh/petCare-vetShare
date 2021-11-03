@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Vet Verify Form{% endblock %}
+
+{% block body %}
+    <h1>Vet Verify Form</h1>
+    <form action="/vets" method="POST">
+        <p>
+            Email <input type="text" name="email">
+        </p>
+
+        <p>
+            Password <input type="password" name="password">
+        </p>
+
+        <p>
+            Last Name <input type="text" name="last_name">
+        </p>
+
+        <p>
+            License Type <input type="text" name="license_type">
+        </p>
+
+        <p>
+            License Number <input type="number" name="license_number">
+        </p>
+
+        <p>
+            Vet Verification Status (please enter: active, retired or expired)
+            <input type="text" name="verification_status">
+
+            <!-- need to change type of inputs like below once incorporating Event handling -->
+            <!-- <input type="radio" name="verification status" value="active">
+            <label>active</label>
+          
+            <input type="radio" name="verification status" value="retired">
+            <label>retired</label>
+
+            <input type="radio" name="verification status" value="expired">
+            <label>expired</label> -->
+        </p>
+
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+{% endblock %}

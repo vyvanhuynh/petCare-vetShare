@@ -4,6 +4,15 @@
 {% block body %}
     <h1>Registration Form</h1>
     <form action="/register" method="POST">
+        <h3>
+            If you want to register as a vet, please click here:
+            <a href="/vets">Vet Register</a>
+        </h3>
+
+        <h3>
+            If not, please enter your email and create a password below
+        </h3>
+
         <p>
             Email <input type="text" name="email">
         </p>
@@ -12,14 +21,14 @@
             Password <input type="password" name="password">
         </p>
 
-        <p>
+        <!-- <p>
             Vet Status 
             <input type="radio" name="is vet" value=True>
             <label>Yes, I'm a vet</label>
           
             <input type="radio" name="is vet" value=False>
             <label>No, I'm not a vet</label>
-        </p>
+        </p> -->
 
         <p>
             <input type="submit">
