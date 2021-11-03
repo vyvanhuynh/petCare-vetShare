@@ -16,8 +16,8 @@ class User(db.Model):
                         primary_key = True)
     email = db.Column(db.String, unique = True)
     password = db.Column(db.String)
-    vet_status = db.Column(db.Boolean, default = False)
-    admin_status = db.Column(db.Boolean)
+    is_vet = db.Column(db.Boolean, default = False)
+    is_admin = db.Column(db.Boolean, default = False)
 
     # vet = a list of Vet objects
     # questions = a list of Question objects

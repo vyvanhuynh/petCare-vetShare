@@ -18,17 +18,17 @@ users_ls = []
 for n in range(10):
     email = f'user{n}@test.com'  
     password = f'test{n}'
-    vet_status = choice([True,False])
-    admin_status = choice([True,False])
+    is_vet = choice([True,False])
+    is_admin = choice([True,False])
 
-    db_user = crud.create_user(email, password, vet_status, admin_status)
+    db_user = crud.create_user(email, password, is_vet, is_admin)
     users_ls.append(db_user)
 
 
 #Create vets from the 10 users created and store them in a list to create answers
 vets_ls =[]
 for user in users_ls:
-    if user.vet_status == True:
+    if user.is_vet == True:
         last_name = choice(['Koning','Smith','Lee','Mendez','Anderson','Huynh'])
         license_type = 'DVM'
         license_number = randint(1000,1999)

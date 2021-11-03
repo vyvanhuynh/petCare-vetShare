@@ -7,7 +7,7 @@ import crud
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
-app.secret_key = "dev"
+app.secret_key = "pet"
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -19,23 +19,32 @@ def create_homepage():
 def show_registration_form():
     return render_template('register.html')
 
+@app.route('/register', methods = ["POST"])
+def register_user():
+    email = request.form.get("email")
+    password = request.form.get("password")
+    is_vet = bool(request.form.get("is vet"))
+    is_admin = False
+    db_email = crud.get_user_by_email(email)
+    if db_email:
+        flash(f"{email} is already registered. Please try a different email")
+    else:
+        user = crud.create_user(email, password, is_vet, is_admin)   
+        if user:     
+            flash("Your account has been successfully created! You can now log in")
+    return redirect('/')
 
-
-
-
-    # email = request.form.get("email")
-    # password = request.form.get("password")
-    # vet_status = request.form.get("vet status")
-    # admin_status = request.form.get("admin status")
-    # db_email = crud.get_user_by_email(email)
-    # if db_email:
-    #     flash(f"{email} is already registered. Please try a different email")
-    # else:
-    #     user = crud.create_user(email, password, vet_status, admin_status)         
-    #     flash("Your account has been successfully created and you can now log in")
-    # return redirect('/')
-
-
+@app.route('/login', methods = ["POST"])
+def login():
+    email = request.form.get("email")
+    password = request.form.get("password")
+    db_login = crud.validate_login(email,password)
+    if db_login:
+        session['email'] = email
+        flash(f"Welcome,{email}!")
+    else:
+        flash("Please try again, we can't verify your email and/or your password")
+    return redirect('/')
 
 
 

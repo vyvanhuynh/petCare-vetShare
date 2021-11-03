@@ -3,13 +3,13 @@
 from model import db, User, Vet, Question, Answer, Vote, connect_to_db 
 
 
-def create_user(email, password, vet_status, admin_status):
+def create_user(email, password, is_vet, is_admin):
     """Create and return a new user"""
 
     user = User(email=email, 
             password=password, 
-            vet_status=vet_status, 
-            admin_status=admin_status)
+            is_vet=is_vet, 
+            is_admin=is_admin)
 
     db.session.add(user)
     db.session.commit()
@@ -21,6 +21,9 @@ def list_all_users():
 
 def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
+
+def validate_login(email, password):
+    return User.query.filter(User.email == email, User.password == password).first()
 
 
 def create_vet(last_name,license_type,license_number,verification_status,user):
