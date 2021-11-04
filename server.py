@@ -63,7 +63,7 @@ def register_vet():
         license_type = request.form.get("license_type")
         license_number = request.form.get("license_number")
         verification_status = request.form.get("verification_status")
-
+       
         # create a vet from this new user
         vet = crud.create_vet(last_name,license_type,license_number,verification_status,user)       
     return redirect('/')
