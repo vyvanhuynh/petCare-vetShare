@@ -38,12 +38,12 @@ def register_user():
     return redirect('/')
 
 
-@app.route('/vets')
+@app.route('/vet_register')
 def show_vet_registration_form():
-    return render_template('vet_verify.html')
+    return render_template('vet_register.html')
 
 
-@app.route('/vets', methods = ["POST"])
+@app.route('/vet_register', methods = ["POST"])
 def register_vet():
     email = request.form.get("email")
     password = request.form.get("password")
@@ -79,7 +79,14 @@ def login():
         flash(f"Welcome,{email}!")
     else:
         flash("Please try again, we can't verify your email and/or your password")
-    return redirect('/')
+        return redirect('/')
+    return redirect('/forum')
+
+
+@app.route('/forum')
+def display_forum():
+    return render_template('forum.html')
+
 
 
 
