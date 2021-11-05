@@ -43,6 +43,8 @@ def create_vet(last_name,license_type,license_number,verification_status,user):
 def list_all_vets():
     return Vet.query.all()
 
+def get_vet_by_user(user):
+    return Vet.query.filter(Vet.user == user).first()
 
 def create_question(date_created, comment_count, question_body, vote_count,user):
     """Create and return a new question"""
@@ -60,6 +62,12 @@ def create_question(date_created, comment_count, question_body, vote_count,user)
 
 def list_all_questions():
     return Question.query.all()
+
+def get_question_by_question_id(question_id):
+    return Question.query.filter(Question.question_id == question_id).first()
+
+def get_question_by_question_body(question_body):
+    return Question.query.filter(Question.question_body == question_body).first()
 
 
 def create_answer(date_created, answer_body, vet, question):

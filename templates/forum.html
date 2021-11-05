@@ -5,27 +5,38 @@
 
     <h1>Pet Care Discussion Forum</h1>
 
-    <h2>Ask A Question</h2>
+    <fieldset>
+    <legend>Ask A Question</legend>
     <form action="/forum" method="POST">
         <p>
-            Your question <input type="text" name="new_question">
+            Your question 
         </p>
+        <textarea type="text" name="new_question" id="new_question"></textarea>
         <p>
-            <input type="submit">
+            <input type="submit" name="new question">
         </p>
     </form>
-    
-    <h2>Questions and Answers</h2>
+    </fieldset>
 
+    <h2>Questions and Answers</h2>
     <ol>
     {% for question in questions %}
         <li>
-            {{ question.question_body }}
+            <form action="/forum" method="POST">
+            <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
+            <p>{{ question.question_body }}</p>
             <ul>
                 {% for answer in question.answers %}
                     <li>{{ answer.answer_body }}</li>
                 {% endfor %}
+                    <p>
+                        Your answer <input type="text" name="new_answer">
+                    </p>
+                    <p>
+                        <input type="submit" name="new answer">
+                    </p>
             </ul>
+            </form>
         </li>
     {% endfor %}
     </ol>

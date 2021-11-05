@@ -7,6 +7,7 @@ from model import connect_to_db
 import crud
 from jinja2 import StrictUndefined
 from datetime import datetime
+import model
 
 app = Flask(__name__)
 app.secret_key = "pet"
@@ -96,14 +97,26 @@ def display_forum():
 
 @app.route('/forum', methods = ["POST"])
 def submit_question():
-    new_question = request.form.get("new_question")
     date_created = datetime.now()
     comment_count = randint(1,10)
-    question_body = new_question
+    question_body = request.form.get("new_question")
     vote_count = randint(1,10)
     email = session['email']
     user = crud.get_user_by_email(email)
-    crud.create_question(date_created, comment_count, question_body, vote_count,user)
+    if "new question" in request.form:
+        crud.create_question(date_created, comment_count, question_body, vote_count,user)
+
+       
+    answer_body = request.form.get("new_answer")
+    vet = crud.get_vet_by_user(user) 
+    question_id = request.form.get("question_id")
+    question = crud.get_question_by_question_id(question_id)
+    if "new answer" in request.form:
+        if vet == None:
+            flash("Sorry,you are not allowed to answer the question because you're not registered as a vet")
+        else:
+            crud.create_answer(date_created, answer_body, vet, question)
+
     return redirect('/forum')
 
 
