@@ -78,8 +78,10 @@ def create_answer(date_created, answer_body, vet, question):
 def list_all_answers():
     return Answer.query.all()
 
+def get_answer_by_question_id(question_id):
+    return Answer.query.filter(Answer.question_id == question_id).all()
+
 
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
-    

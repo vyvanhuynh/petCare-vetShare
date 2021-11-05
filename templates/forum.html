@@ -4,6 +4,33 @@
 {% block body %}
 
     <h1>Pet Care Discussion Forum</h1>
-    
 
+    <h2>Ask A Question</h2>
+    <form action="/forum" method="POST">
+        <p>
+            Your question <input type="text" name="new_question">
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+    
+    <h2>Questions and Answers</h2>
+
+    <ol>
+    {% for question in questions %}
+        <li>
+            {{ question.question_body }}
+            <ul>
+                {% for answer in question.answers %}
+                    <li>{{ answer.answer_body }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ol>
+
+ 
 {% endblock %}
+
+    

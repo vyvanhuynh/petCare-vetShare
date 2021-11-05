@@ -1,10 +1,12 @@
 """ Server for pet care discussion app. """
 
+from random import randint
 from flask import (Flask, render_template, request, flash, session,
                    redirect)
 from model import connect_to_db
 import crud
 from jinja2 import StrictUndefined
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = "pet"
@@ -85,8 +87,24 @@ def login():
 
 @app.route('/forum')
 def display_forum():
-    return render_template('forum.html')
+    questions = crud.list_all_questions()
+    # question_answer = {}
+    # for question in questions:
+    #     question_answer[question]=crud.get_answer_by_question_id(question.question_id)
+    return render_template('forum.html', questions=questions)
 
+
+@app.route('/forum', methods = ["POST"])
+def submit_question():
+    new_question = request.form.get("new_question")
+    date_created = datetime.now()
+    comment_count = randint(1,10)
+    question_body = new_question
+    vote_count = randint(1,10)
+    email = session['email']
+    user = crud.get_user_by_email(email)
+    crud.create_question(date_created, comment_count, question_body, vote_count,user)
+    return redirect('/forum')
 
 
 
