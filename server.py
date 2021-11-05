@@ -89,9 +89,6 @@ def login():
 @app.route('/forum')
 def display_forum():
     questions = crud.list_all_questions()
-    # question_answer = {}
-    # for question in questions:
-    #     question_answer[question]=crud.get_answer_by_question_id(question.question_id)
     return render_template('forum.html', questions=questions)
 
 
@@ -113,7 +110,7 @@ def submit_question():
     question = crud.get_question_by_question_id(question_id)
     if "new answer" in request.form:
         if vet == None:
-            flash("Sorry,you are not allowed to answer the question because you're not registered as a vet")
+            flash("Sorry, you are not allowed to answer the question because you're not registered as a vet")
         else:
             crud.create_answer(date_created, answer_body, vet, question)
 

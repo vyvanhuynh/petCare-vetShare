@@ -51,7 +51,7 @@ question_content_ls = ["What do bunnies eat?",
                     "Can I brush my dog's teeth daily?",
                     "Do all bunnies need bondmate?"]
 
-answer_content_ls = ["Bunnies eat hay, veggies and hay based pellets",
+answer_content_ls = ["Bunnies eat hay, veggies and hay-based pellets",
                     "Chocolate is toxic for dogs",
                     "Bunnies can eat fruits but only in small amount as treats",
                     "Bunnies cannot be bathed",
