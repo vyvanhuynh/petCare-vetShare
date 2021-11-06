@@ -20,12 +20,13 @@
 
     <h2>Questions and Answers</h2>
     <ol>
-    {% for question in questions %}
+    {% for question in questions|sort(attribute='vote_count', reverse = True) %}
         <li>
             <form action="/forum" method="POST">
             <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
             <p>{{ question.question_body }}
                 <input type="submit" name="new vote" value="Vote" >
+                Vote number: {{ question.vote_count }}
             </p>
 
             <ul>
