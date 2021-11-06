@@ -24,7 +24,10 @@
         <li>
             <form action="/forum" method="POST">
             <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
-            <p>{{ question.question_body }}</p>
+            <p>{{ question.question_body }}
+                <input type="submit" name="new vote" value="Vote" >
+            </p>
+
             <ul>
                 {% for answer in question.answers %}
                     <li>{{ answer.answer_body }}</li>

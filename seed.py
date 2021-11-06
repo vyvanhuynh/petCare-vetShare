@@ -26,7 +26,7 @@ for n in range(10):
 
 
 #Create vets from the 10 users created and store them in a list to create answers
-vets_ls =[]
+vets_ls = []
 for user in users_ls:
     if user.is_vet == True:
         last_name = choice(['Koning','Smith','Lee','Mendez','Anderson','Huynh'])

@@ -89,6 +89,12 @@ def list_all_answers():
 def get_answer_by_question_id(question_id):
     return Answer.query.filter(Answer.question_id == question_id).all()
 
+def increase_vote(question_id):
+    question = Question.query.filter(Question.question_id == question_id).first()
+    question.vote_count += 1
+    
+    db.session.commit()
+
 
 if __name__ == '__main__':
     from server import app

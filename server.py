@@ -114,6 +114,11 @@ def submit_question():
         else:
             crud.create_answer(date_created, answer_body, vet, question)
 
+    
+    if "new vote" in request.form:
+        crud.increase_vote(question_id)
+
+
     return redirect('/forum')
 
 
