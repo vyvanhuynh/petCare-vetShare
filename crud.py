@@ -89,6 +89,22 @@ def list_all_answers():
 def get_answer_by_question_id(question_id):
     return Answer.query.filter(Answer.question_id == question_id).all()
 
+def create_vote(question_id, user_id, user, question):
+    """Create and return a vote"""
+
+    vote = Vote(question_id=question_id,
+                user_id=user_id,
+                user=user,
+                question=question)
+        
+    db.session.add(vote)
+    db.session.commit()
+
+    return vote
+
+def get_vote_by_question_id_and_user_id(question_id, user_id):
+    return Vote.query.filter(Vote.question_id == question_id, Vote.user_id == user_id).first()
+
 def increase_vote(question_id):
     question = Question.query.filter(Question.question_id == question_id).first()
     question.vote_count += 1

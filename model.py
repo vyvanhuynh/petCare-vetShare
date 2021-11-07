@@ -108,7 +108,7 @@ class Vote(db.Model):
     question = db.relationship("Question", backref = "votes")
 
     def __repr__(self):
-        return f"<Vote vote_id={self.vote_id} question_id={self.question_id}>"
+        return f"<Vote vote_id={self.vote_id} question_id={self.question_id} user_id={self.user_id}>"
 
 
 

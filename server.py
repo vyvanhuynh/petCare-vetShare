@@ -36,7 +36,7 @@ def register_user():
     if db_email:
         flash(f"{email} is already registered. Please try a different email")
     else:
-        user = crud.create_user(email, password, is_vet, is_admin)        
+        crud.create_user(email, password, is_vet, is_admin)        
         flash("Your account has been successfully created! You can now log in")        
     return redirect('/')
 
@@ -68,7 +68,7 @@ def register_vet():
         verification_status = request.form.get("verification_status")
        
         # create a vet from this new user
-        vet = crud.create_vet(last_name,license_type,license_number,verification_status,user)       
+        crud.create_vet(last_name,license_type,license_number,verification_status,user)       
     return redirect('/')
 
 
@@ -113,10 +113,15 @@ def submit_question():
             flash("Sorry, you are not allowed to answer the question because you're not registered as a vet")
         else:
             crud.create_answer(date_created, answer_body, vet, question)
-
     
     if "new vote" in request.form:
-        crud.increase_vote(question_id)
+        user_id = user.user_id
+        db_vote = crud.get_vote_by_question_id_and_user_id(question_id, user_id)
+        if db_vote:
+            flash(f"Sorry, you can only vote once per question")
+        else:
+            crud.create_vote(question_id, user_id, user, question)
+            crud.increase_vote(question_id)
 
 
     return redirect('/forum')
