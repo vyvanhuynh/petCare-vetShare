@@ -2,7 +2,7 @@
 
 from random import randint
 from flask import (Flask, render_template, request, flash, session,
-                   redirect)
+                   redirect, send_from_directory)
 from model import connect_to_db
 import crud
 from jinja2 import StrictUndefined
@@ -125,6 +125,15 @@ def submit_question():
 
 
     return redirect('/forum')
+
+
+@app.route("/map")
+def show_map():
+    return render_template("map.html")
+
+
+
+
 
 
 
