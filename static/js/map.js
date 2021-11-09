@@ -1,13 +1,34 @@
 'use strict';
 
 function initMap() {
-  console.log("start initMap func");
-  const map = new google.maps.Map(document.querySelector("#map"), {
+  let map = new google.maps.Map(document.querySelector("#map"), {
     center: {
-      lat: 37.601773,
-      lng: -122.20287,
+      lat: 44.954445,
+      lng: -93.091301,
     },
     zoom:10,
   });
-  console.log(map);
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      currLocation => {
+        alert('Going to your location now!');
+
+        map.setCenter({
+          lat: currLocation.coords.latitude,
+          lng: currLocation.coords.longitude,
+        });
+        map.setZoom(18);
+      },
+      (err) => {
+        alert('Unable to get your location :(');
+        
+      }
+    );
+  } 
+  else {
+    alert(`Your browser doesn't support geolocation`);
+  }
+
 }
+  

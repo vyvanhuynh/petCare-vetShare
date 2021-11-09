@@ -8,6 +8,7 @@ import crud
 from jinja2 import StrictUndefined
 from datetime import datetime
 import model
+import requests 
 
 app = Flask(__name__)
 app.secret_key = "pet"
@@ -128,7 +129,16 @@ def submit_question():
 
 
 @app.route("/map")
-def show_map():
+def show_map(): 
+
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+    payload = {}
+    headers = {}
+
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    print(response.text)
     return render_template("map.html")
 
 
