@@ -12,13 +12,15 @@ function initMap() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       currLocation => {
-        alert('Going to your location now!');
+        // alert('Going to your location now!');
 
         map.setCenter({
           lat: currLocation.coords.latitude,
           lng: currLocation.coords.longitude,
         });
-        map.setZoom(18);
+        alert(lat)
+        alert(lng)
+        map.setZoom(38);
       },
       (err) => {
         alert('Unable to get your location :(');

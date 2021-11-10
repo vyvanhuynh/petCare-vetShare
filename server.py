@@ -9,6 +9,7 @@ from jinja2 import StrictUndefined
 from datetime import datetime
 import model
 import requests 
+import geocoder
 
 app = Flask(__name__)
 app.secret_key = "pet"
@@ -131,15 +132,36 @@ def submit_question():
 @app.route("/map")
 def show_map(): 
 
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
-    payload = {}
-    headers = {}
+    url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+    # url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=15000&keyword=vet&key=AIzaSyBgC9H3LJ18Ycgcls2cSyHSrI2QaYbzN6o"
 
+    
+    g = geocoder.ip('me')
+    # print(g.lat)
+    # print(userLng)
+    place_ls = []
+    keywords = ['vet', 'veterinary clinic', 'animal hospital', 'pet hospital']
+    for keyword in keywords:
+        payload = {
+            'location': f'{g.lat},{g.lng}',
+            'radius': '40000',
+            'keyword': keyword,
+            'key': 'AIzaSyBgC9H3LJ18Ycgcls2cSyHSrI2QaYbzN6o'
+        }
+        response = requests.get(url, params=payload)
+        place_data = response.json()
+        place_ls.append(place_data)
+  
+    result_ls = []
+    for place in place_ls:
+        for result in place['results']:
+            result_ls.append(result)
+    flash(result_ls)
+    
+    first_place = result_ls[0]
 
-    response = requests.request("GET", url, headers=headers, data=payload)
-
-    print(response.text)
-    return render_template("map.html")
+    return first_place
+    
 
 
 
