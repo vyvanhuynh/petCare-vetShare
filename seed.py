@@ -13,16 +13,25 @@ model.connect_to_db(server.app)
 model.db.create_all()
 
 
-# Create 10 users and store them in a list to create vets and questions
+
+# Create 10 users and store them in a list to create vets and questions;
+# make user0 an admin
 users_ls = []
+admin_ls = []
 for n in range(10):
     email = f'user{n}@test.com'  
     password = f'test{n}'
-    is_vet = choice([True,False])
-    is_admin = choice([True,False])
+    is_vet = False
+    if n == 0:
+        is_admin = True
+        db_user = crud.create_user(email, password, is_vet, is_admin)
+        users_ls.append(db_user)
+        admin_ls.append(db_user)
+    else:
+        is_admin = False   
+        db_user = crud.create_user(email, password, is_vet, is_admin)
+        users_ls.append(db_user)
 
-    db_user = crud.create_user(email, password, is_vet, is_admin)
-    users_ls.append(db_user)
 
 
 #Create vets from the 10 users created and store them in a list to create answers

@@ -87,6 +87,19 @@ def login():
         return redirect('/')
     return redirect('/forum')
 
+@app.route('/admin')
+def admin_activities():
+    users = crud.list_all_users()
+    return render_template('admin_page.html', users = users)
+
+@app.route('/admin/<email>')
+def show_user_details(email):
+    user = crud.get_user_by_email(email)
+    vet = crud.get_vet_by_user(user)
+    if vet == None:
+        return render_template('user_details.html', user = user)
+    else:
+        return render_template('vet_details.html', user = user, vet = vet)
 
 @app.route('/forum')
 def display_forum():

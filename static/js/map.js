@@ -55,12 +55,17 @@ function getVetNearby(position){
     keyword: ['vet', 'veterinary clinic', 'animal hospital', 'pet hospital'],
   }
 
+  // PlacesService is a class that 
+  // contains methods to search for places and retrieving their details.
   service = new google.maps.places.PlacesService(map);
+  // nearbySearch is a built-in method that takes in (request,callback)
   service.nearbySearch(nearbyRequest, nearbyCallback);
 }
 
 // The callback func for nearbySearch; 
-// check if the status is OK then create a marker
+// check if the status is OK then create a marker;
+// (PlacesServiceStatus is a constant/status 
+// returned by the PlacesService on the completion of its searches)
 function nearbyCallback(nearbyResults, nearbyStatus){
   if( nearbyStatus == google.maps.places.PlacesServiceStatus.OK){
     createMarker(nearbyResults);
@@ -75,7 +80,7 @@ function createMarker(places){
       map: map,
       title: place.name,
     });
-    // Add an envent listener to each marker
+    // Add an event listener to each marker
     google.maps.event.addListener(marker, "click", () => {
       let detailRequest = { 
         placeId: place.place_id,
@@ -113,10 +118,8 @@ function showDetails(placeResult, marker, placeStatus){
                                   + 'Website: ' + '<a href="' + placeResult.website + '">' + placeResult.website + '</a>' 
                                   + '</div>');
     placeInfoWindow.open(marker.map, marker);
+    // close the previous info window and displays the most recently clicked one
     currentInfoWindow.close();
     currentInfoWindow = placeInfoWindow;
   } 
-  else {
-    console.log("showDetails failed: " + placeStatus);
-  }
 }

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.email }} - Details{% endblock %}
+
+{% block body %}
+<h1>{{ user.email }}</h1>
+
+<p>
+   Is Admin: {{ user.is_admin }}
+</p>
+  
+<p>
+   Is Vet: {{ user.is_vet }}
+</p>
+
+<p>
+    Vet Lastname: {{ vet.last_name }}
+</p>
+
+<p>
+    Vet License Type: {{ vet.license_type }}
+</p>
+
+<p>
+    Vet License Number: {{ vet.license_number }}
+</p>
+
+<p>
+    Vet Status: {{ vet.verification_status }}
+</p>
+
+{% endblock %}
