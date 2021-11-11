@@ -2,14 +2,14 @@
 
 from random import randint
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, send_from_directory)
+                   redirect, send_from_directory, jsonify)
 from model import connect_to_db
 import crud
 from jinja2 import StrictUndefined
 from datetime import datetime
 import model
-import requests 
-import geocoder
+# import requests 
+# import geocoder
 
 app = Flask(__name__)
 app.secret_key = "pet"
@@ -130,39 +130,43 @@ def submit_question():
 
 
 @app.route("/map")
-def show_map(): 
+def view_vet_map():
+    """Show map of vets."""
 
-    url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
-    # url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=15000&keyword=vet&key=AIzaSyBgC9H3LJ18Ycgcls2cSyHSrI2QaYbzN6o"
+    return render_template("map.html")
+
+# @app.route("/api/map")
+# def show_map_info(): 
+
+#     url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+#     # url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=15000&keyword=vet&key=AIzaSyBgC9H3LJ18Ycgcls2cSyHSrI2QaYbzN6o"
 
     
-    g = geocoder.ip('me')
-    # print(g.lat)
-    # print(userLng)
-    place_ls = []
-    keywords = ['vet', 'veterinary clinic', 'animal hospital', 'pet hospital']
-    for keyword in keywords:
-        payload = {
-            'location': f'{g.lat},{g.lng}',
-            'radius': '40000',
-            'keyword': keyword,
-            'key': 'AIzaSyBgC9H3LJ18Ycgcls2cSyHSrI2QaYbzN6o'
-        }
-        response = requests.get(url, params=payload)
-        place_data = response.json()
-        place_ls.append(place_data)
+#     here = geocoder.ip('me')
+
+#     place_ls = []
+#     keywords = ['vet', 'veterinary clinic', 'animal hospital', 'pet hospital']
+#     for keyword in keywords:
+#         payload = {
+#             'location': f'{here.lat},{here.lng}',
+#             'radius': '40000',
+#             'keyword': keyword,
+#             'key': 'AIzaSyBgC9H3LJ18Ycgcls2cSyHSrI2QaYbzN6o'
+#         }
+#         response = requests.get(url, params=payload)
+#         place_data = response.json()
+#         place_ls.append(place_data)
   
-    result_ls = []
-    for place in place_ls:
-        for result in place['results']:
-            result_ls.append(result)
-    flash(result_ls)
+#     result_ls = []
+#     for place in place_ls:
+#         for result in place['results']:
+#             result_ls.append(result)
+  
     
-    first_place = result_ls[0]
+#     first_place = result_ls[0]
 
-    return first_place
+#     return jsonify(first_place)
     
-
 
 
 
