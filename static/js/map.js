@@ -109,7 +109,9 @@ function showDetails(placeResult, marker, placeStatus){
     // Set the content in the info window 
     placeInfoWindow.setContent('<div><strong>' + placeResult.name + '</strong><br>' 
                                   + 'Rating: ' + placeRating + '<br>'  
-                                  + 'Address: ' + placeResult.formatted_address +'</div>');
+                                  + 'Address: ' + placeResult.formatted_address + '<br>'
+                                  + 'Website: ' + '<a href="' + placeResult.website + '">' + placeResult.website + '</a>' 
+                                  + '</div>');
     placeInfoWindow.open(marker.map, marker);
     currentInfoWindow.close();
     currentInfoWindow = placeInfoWindow;
