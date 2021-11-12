@@ -6,11 +6,24 @@
 <h1>{{ user.email }}</h1>
 
 <p>
-   Is Admin: {{ user.is_admin }}
+    Is Admin?: {{ user.is_admin }}
 </p>
   
 <p>
-   Is Vet: {{ user.is_vet }}
+    Is Vet?: {{ user.is_vet }}
+</p>
+
+<p>
+    Is Vet Pending?: {{ vet.is_vet_pending }} <br>
+    (Is Vet Pending value need to be False to allow user answer question) </br>
+    Verify this vet? 
+    <form action='/verifying' method="POST">
+        <input type="hidden" id="user_id" name="user_id" value={{user.user_id}}>
+        <input type="hidden" id="email" name="email" value={{user.email}}>
+        <p>
+            <input type="submit" name="verification" value="Verify">
+        </p>
+    </form>
 </p>
 
 <p>
@@ -28,5 +41,6 @@
 <p>
     Vet Status: {{ vet.verification_status }}
 </p>
+
 
 {% endblock %}

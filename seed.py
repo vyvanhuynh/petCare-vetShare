@@ -46,14 +46,16 @@ for n in range(10):
 #Create vets from the 10 users created and store them in a list to create answers
 vets_ls = []
 for user in users_ls:
-    if user.is_vet == True:
+    
+    if user.is_vet == True: 
         last_name = choice(['Koning','Smith','Lee','Mendez','Anderson','Huynh'])
         license_type = 'DVM'
         license_number = randint(1000,1999)
         verification_status = choice(['active','expired','retired'])
+        is_vet_pending = True
         user = user
 
-        db_vet = crud.create_vet(last_name,license_type,license_number,verification_status,user)
+        db_vet = crud.create_vet(last_name,license_type,license_number,verification_status,is_vet_pending,user)
         vets_ls.append(db_vet)
 
 

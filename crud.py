@@ -29,19 +29,30 @@ def validate_login(email, password):
     return User.query.filter(User.email == email, User.password == password).first()
 
 
-def create_vet(last_name,license_type,license_number,verification_status,user):
+def create_vet(last_name,license_type,license_number,verification_status,is_vet_pending,user):
     """Create and return a new vet"""
 
     vet = Vet(last_name=last_name,
             license_type=license_type,
             license_number=license_number,
             verification_status=verification_status,
+            is_vet_pending=is_vet_pending,
             user=user)
 
     db.session.add(vet)
     db.session.commit()
 
     return vet
+
+
+def verify_vet(user_id):
+    """Verify vet"""
+    vet_verified = Vet.query.filter_by(user_id=user_id).first()
+    vet_verified.is_vet_pending = False
+    user_vet_verified = User.query.filter_by(user_id=user_id).first()
+    user_vet_verified.is_vet = True
+    db.session.commit()
+
 
 def list_all_vets():
     return Vet.query.all()

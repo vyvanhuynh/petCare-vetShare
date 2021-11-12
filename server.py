@@ -66,10 +66,13 @@ def register_vet():
         last_name = request.form.get("last_name")
         license_type = request.form.get("license_type")
         license_number = request.form.get("license_number")
+        is_vet_pending = True
         verification_status = request.form.get("verification_status")
        
         # create a vet from this new user
-        crud.create_vet(last_name,license_type,license_number,verification_status,user)       
+        crud.create_vet(last_name,license_type,license_number,verification_status,is_vet_pending,user)  
+
+        flash(f"{email} is successfully registered!")     
     return redirect('/')
 
 
@@ -105,6 +108,17 @@ def show_user_details(email):
     else:
         return render_template('vet_details.html', user = user, vet = vet)
 
+
+@app.route('/verifying', methods = ["POST"])
+def verify_vet():
+    user_id = request.form.get("user_id")
+    email = request.form.get("email")
+    # if "verification" in request.form:
+    crud.verify_vet(user_id)
+    flash (f"Succesfully verify {email} as a vet!")
+    return redirect('/admin')
+
+
 @app.route('/forum')
 def display_forum():
     questions = crud.list_all_questions()
@@ -112,7 +126,8 @@ def display_forum():
 
 
 @app.route('/forum', methods = ["POST"])
-def submit_question():
+def submit_question_answer_vote():
+    # create question
     date_created = datetime.now()
     comment_count = randint(1,10)
     question_body = request.form.get("new_question")
@@ -122,17 +137,20 @@ def submit_question():
     if "new question" in request.form:
         crud.create_question(date_created, comment_count, question_body, vote_count,user)
 
-       
+    # create answer if user is a vet
     answer_body = request.form.get("new_answer")
     vet = crud.get_vet_by_user(user) 
     question_id = request.form.get("question_id")
     question = crud.get_question_by_question_id(question_id)
     if "new answer" in request.form:
-        if vet == None:
+        if vet == None :
             flash("Sorry, you are not allowed to answer the question because you're not registered as a vet")
+        elif vet.is_vet_pending == True:
+            flash ("Sorry, your vet status is pending")
         else:
             crud.create_answer(date_created, answer_body, vet, question)
     
+    # create vote 
     if "new vote" in request.form:
         user_id = user.user_id
         db_vote = crud.get_vote_by_question_id_and_user_id(question_id, user_id)

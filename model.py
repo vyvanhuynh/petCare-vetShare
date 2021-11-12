@@ -1,6 +1,7 @@
 """ Models for pet care app. """
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.hybrid import hybrid_property
 
 
 db = SQLAlchemy()
@@ -40,9 +41,22 @@ class Vet(db.Model):
     license_type = db.Column(db.String)
     license_number = db.Column(db.Integer)
     verification_status = db.Column(db.String)
+    is_vet_pending = db.Column(db.Boolean, default = True)
 
     user = db.relationship("User", backref = "vet", uselist = False)
     # answers = a list of Answer objects
+
+    # @hybrid_property
+    # def verification(self):
+    #     return User.is_vet
+    
+    # @verification.setter
+    # def verification(self,value):
+    #     if value and not self.verification:
+    #         User.is_vet = False
+    #     if not value and self.verification:
+    #         User.is_vet = True
+
 
     def __repr__(self):
         return f"<Vet user_id={self.user_id} last_name={self.last_name}>"
