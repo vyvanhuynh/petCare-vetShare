@@ -72,7 +72,7 @@ def register_vet():
         # create a vet from this new user
         crud.create_vet(last_name,license_type,license_number,verification_status,is_vet_pending,user)  
 
-        flash(f"{email} is successfully registered!")     
+        flash(f"Thank you, {email} is successfully registered! Your vet status is pending. You will be able to answer questions once the admin verify your status!")     
     return redirect('/')
 
 
