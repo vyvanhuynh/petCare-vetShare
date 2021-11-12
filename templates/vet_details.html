@@ -17,12 +17,11 @@
     Is Vet Pending?: {{ vet.is_vet_pending }} <br>
     (Is Vet Pending value need to be False to allow user answer question) </br>
     Verify this vet? 
+    Go here to check the info of this vet: <a href="https://www.aavsb.org/public-resources/look-up-a-license/">Look up vet info</a>
     <form action='/verifying' method="POST">
         <input type="hidden" id="user_id" name="user_id" value={{user.user_id}}>
         <input type="hidden" id="email" name="email" value={{user.email}}>
-        <p>
-            <input type="submit" name="verification" value="Verify">
-        </p>
+        <input type="submit" name="verification" value="Verify">
     </form>
 </p>
 
