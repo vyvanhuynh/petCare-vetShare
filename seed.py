@@ -15,19 +15,28 @@ model.db.create_all()
 
 
 # Create 10 users and store them in a list to create vets and questions;
-# make user0 an admin
 users_ls = []
 admin_ls = []
 for n in range(10):
     email = f'user{n}@test.com'  
     password = f'test{n}'
-    is_vet = False
+   
+    # make user0 an admin
     if n == 0:
+        is_vet = False
         is_admin = True
         db_user = crud.create_user(email, password, is_vet, is_admin)
         users_ls.append(db_user)
         admin_ls.append(db_user)
+    # make user1 a vet
+    elif n == 1:
+        is_vet = True
+        is_admin = False
+        db_user = crud.create_user(email, password, is_vet, is_admin)
+        users_ls.append(db_user)
+    # all other users are neither vet nor admin 
     else:
+        is_vet = False
         is_admin = False   
         db_user = crud.create_user(email, password, is_vet, is_admin)
         users_ls.append(db_user)

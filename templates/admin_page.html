@@ -2,7 +2,16 @@
 {% block title %}Admin Page{% endblock %}
 
 {% block body %}
-<h1>All Users</h1>
+<h1>Admin Page</h1>
+
+<h2>Navigation</h2>
+  <ul>
+    <li><a href="/forum">Go to forum</a></li>
+    <li><a href="/map">Look up nearby vets</a></li>
+    <li><a href="/login">Log in</a></li>
+  </ul>
+
+<h2>All Users</h2>
 {% for user in users %}
 <ul>
     <li>

@@ -1,15 +1,14 @@
 """ Server for pet care discussion app. """
 
 from random import randint
+
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, send_from_directory, jsonify)
+                   redirect)
 from model import connect_to_db
 import crud
 from jinja2 import StrictUndefined
 from datetime import datetime
-import model
-# import requests 
-# import geocoder
+
 
 app = Flask(__name__)
 app.secret_key = "pet"
@@ -82,10 +81,15 @@ def login():
     if db_login:
         session['email'] = email
         flash(f"Welcome,{email}!")
+        user = crud.get_user_by_email(email)
+        if user.is_admin == True:
+            return redirect('/admin')
+        else: 
+            return redirect('/forum')
     else:
         flash("Please try again, we can't verify your email and/or your password")
         return redirect('/')
-    return redirect('/forum')
+    
 
 @app.route('/admin')
 def admin_activities():
