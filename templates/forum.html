@@ -1,17 +1,30 @@
 {% extends 'base.html' %}
 {% block title %}Pet Care Discussion Forum{% endblock %}
 
+
 {% block body %}
     <div class="row">
     <h1>Pet Care Discussion Forum</h1>
     </div>
 
-   
-
     <div class="row justify-content-center">
 
     <div class="col-9 col-md-6">
     <h2>Questions and Answers</h2>
+
+    
+
+    <!-- Search bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" name="key_word" placeholder="Enter a keyword" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit" name="new search">Search</button>
+          </form>
+        </div>
+    </nav>
+
+    <!-- Questions and Answers -->
     <ol>
     {% for question in questions|sort(attribute='vote_count', reverse = True) %}
         <li>
@@ -50,17 +63,15 @@
                 <input type="submit" name="new question">
             </p>
         </form>
-        
-    
-        
-        <h3>
+        <h4>
             Do you need to look up a vet nearby?
             <a href="/map">Look up nearby vet</a>
-        </h3>
+        </h4>
     </div>
 
     </div>
  
+    
 {% endblock %}
 
     

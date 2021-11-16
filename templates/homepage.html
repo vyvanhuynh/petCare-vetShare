@@ -1,49 +1,56 @@
 {% extends 'base.html' %}
+
 {% block title %}Pet Care Discussion Home{% endblock %}
 
+{% block nav %}{% endblock %}
+
 {% block body %}
+<div class="container overflow-hidden">
 
     <div class="row">
-    <h1>Welcome to the Pet Care Discussion Site!</h1>
-    </div>
-
-    <div class="row">
-    <div class="col-9 col-md-6">
-    <h3>Already have an acount? Let's log in</h3>
-    <form action="/login" method="POST">
-        <div class="row g-3 align-items-center">
-            <div class="col-auto">
-                <label for="email" class="form-label">Email address</label>
-            </div>
-            <div class="col-auto">
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-            </div>
+        <div class="col-12 d-flex justify-content-center">
+        <h1>Welcome to the Pet Care Discussion Site!</h1>
         </div>
-        <div class="row g-3 align-items-center">
-            <div class="col-auto">
-                <label for="password" class="col-form-label">Password</label>
-            </div>
-            <div class="col-auto">
-                <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelpInline">
-            </div>
-          </div>
-        <div class="row g-3 align-items-center">
-        <p>
-        <button type="submit" class="btn btn-primary">Log In</button>
-        </p>
-        </div>
-    </form>
-    
-    </div>
     </div>
 
     <div class="row">
-    <div class="col-3 col-md-6">
+        <div class="col-12 d-flex justify-content-center top-buffer">
+        <h4>Already have an acount? Let's log in</h4>
+        </div>
+        <div class="row d-flex justify-content-center">
+        <form action="/login" method="POST">
+            <div class="row d-flex justify-content-center top-buffer">
+                <div class="col-auto">
+                    <label for="email" class="form-label">Email address</label>
+                </div>
+                <div class="col-auto">
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center top-buffer">
+                <div class="col-auto">
+                    <label for="password" class="col-form-label">Password</label>
+                </div>
+                <div class="col-auto">
+                    <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelpInline">
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-center top-buffer">
+                <p>
+                <button type="submit" class="btn btn-primary">Log In</button>
+                </p>
+            </div>
+        </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
         <h5>Don't have an acount? Please click here to register:
             <a href="/register">Register</a>
         </h5>
         </div>
     </div>
 
-
+</div>
 {% endblock %}

@@ -2,17 +2,32 @@
 
 {% block title %}{{ user.email }} - Details{% endblock %}
 
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/#">Pet Care Discussion Site</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/forum">Forum</a>
+        <a class="nav-link" href="/map">Lookup nearby vet</a>
+        <a class="nav-link" href="/admin">Admin Page</a>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
 {% block body %}
 <h1>{{ user.email }}</h1>
-
 <p>
     Is Admin?: {{ user.is_admin }}
 </p>
-  
 <p>
     Is Vet?: {{ user.is_vet }}
 </p>
-
 <p>
     Is Vet Pending?: {{ vet.is_vet_pending }} <br>
     (Is Vet Pending value need to be False to allow user answer question) </br>
@@ -24,19 +39,15 @@
         <input type="submit" name="verification" value="Verify">
     </form>
 </p>
-
 <p>
     Vet Lastname: {{ vet.last_name }}
 </p>
-
 <p>
     Vet License Type: {{ vet.license_type }}
 </p>
-
 <p>
     Vet License Number: {{ vet.license_number }}
 </p>
-
 <p>
     Vet Status: {{ vet.verification_status }}
 </p>

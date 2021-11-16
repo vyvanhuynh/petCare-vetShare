@@ -2,6 +2,24 @@
 
 {% block title %}{{ user.email }} - Details{% endblock %}
 
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/#">Pet Care Discussion Site</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/forum">Forum</a>
+        <a class="nav-link" href="/map">Lookup nearby vet</a>
+        <a class="nav-link" href="/admin">Admin Page</a>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
 {% block body %}
 <h1>{{ user.email }}</h1>
 
@@ -12,7 +30,5 @@
 <p>
    Is Vet: {{ user.is_vet }}
 </p>
-
-
 
 {% endblock %}
