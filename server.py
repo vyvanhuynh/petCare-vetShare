@@ -113,7 +113,6 @@ def show_user_details(email):
 def verify_vet():
     user_id = request.form.get("user_id")
     email = request.form.get("email")
-    # if "verification" in request.form:
     crud.verify_vet(user_id)
     flash (f"Succesfully verify {email} as a vet!")
     return redirect('/admin')
@@ -131,7 +130,7 @@ def submit_question_answer_vote():
     date_created = datetime.now()
     comment_count = randint(1,10)
     question_body = request.form.get("new_question")
-    vote_count = randint(1,10)
+    vote_count = 0
     email = session['email']
     user = crud.get_user_by_email(email)
     if "new question" in request.form:

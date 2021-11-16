@@ -2,24 +2,37 @@
 {% block title %}Admin Page{% endblock %}
 
 {% block body %}
-<h1>Admin Page</h1>
+<div class="row">
+ <h1>Admin Page</h1>       
+</div>
 
+<div class="row">
 <h2>Navigation</h2>
   <ul>
     <li><a href="/forum">Go to forum</a></li>
     <li><a href="/map">Look up nearby vets</a></li>
-    <li><a href="/login">Log in</a></li>
+    <li><a href="/">Log in</a></li>
   </ul>
+</div>
 
+
+<div class="row">
 <h2>All Users</h2>
+</div>
+
+<div>
 {% for user in users %}
 <ul>
+    <div class="row">
     <li>
       <a href="/admin/{{user.email}}">
          {{user.email}}
       </a>
     </li>
+    </div>
 </ul>
-    
+</div>
+
+
 {% endfor %}
 {% endblock %}

@@ -2,27 +2,15 @@
 {% block title %}Pet Care Discussion Forum{% endblock %}
 
 {% block body %}
-
+    <div class="row">
     <h1>Pet Care Discussion Forum</h1>
+    </div>
 
-    <fieldset>
-    <legend>Ask A Question</legend>
-    <form action="/forum" method="POST">
-        <p>
-            Your question 
-        </p>
-        <textarea type="text" name="new_question" id="new_question"></textarea>
-        <p>
-            <input type="submit" name="new question">
-        </p>
-    </form>
-    </fieldset>
+   
 
-    <h3>
-        Do you need to look up for a vet nearby?
-        <a href="/map">Look up nearby vet</a>
-    </h3>
+    <div class="row justify-content-center">
 
+    <div class="col-9 col-md-6">
     <h2>Questions and Answers</h2>
     <ol>
     {% for question in questions|sort(attribute='vote_count', reverse = True) %}
@@ -49,7 +37,29 @@
         </li>
     {% endfor %}
     </ol>
+    </div>
 
+    <div class="col-3 col-md-6">
+        <h3>Ask A Question</h3>
+        <form action="/forum" method="POST">
+            <p>
+                Your question 
+            </p>
+            <textarea type="text" name="new_question" id="new_question"></textarea>
+            <p>
+                <input type="submit" name="new question">
+            </p>
+        </form>
+        
+    
+        
+        <h3>
+            Do you need to look up a vet nearby?
+            <a href="/map">Look up nearby vet</a>
+        </h3>
+    </div>
+
+    </div>
  
 {% endblock %}
 
