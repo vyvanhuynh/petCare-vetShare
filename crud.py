@@ -57,6 +57,9 @@ def verify_vet(user_id):
 def list_all_vets():
     return Vet.query.all()
 
+def list_all_vets_as_users():
+    return User.query.filter(User.is_vet == True).all()
+
 def get_vet_by_user(user):
     return Vet.query.filter(Vet.user == user).first()
 

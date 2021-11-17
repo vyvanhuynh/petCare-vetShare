@@ -100,7 +100,8 @@ def login():
 @app.route('/admin')
 def admin_activities():
     users = crud.list_all_users()
-    return render_template('admin_page.html', users = users)
+    vets = crud.list_all_vets_as_users()
+    return render_template('admin_page.html', users = users, vets=vets)
 
 @app.route('/admin/<email>')
 def show_user_details(email):

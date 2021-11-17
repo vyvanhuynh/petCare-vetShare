@@ -13,7 +13,7 @@
 <h2>All Users</h2>
 </div>
 
-
+<div>
 {% for user in users %}
     <div class="users">
     
@@ -23,6 +23,23 @@
   
     </div>
 {% endfor %}
+</div>
 
+<div class="row">
+  <h2>All Vets</h2>
+</div>
+
+<div>
+
+  {% for vet_user in vets %}
+      <div class="vets">
+      
+        <a href="/admin/{{vet_user.email}}">
+           {{vet_user.email}}
+        </a>
+       
+      </div>
+  {% endfor %}
+</div>
 
 {% endblock %}

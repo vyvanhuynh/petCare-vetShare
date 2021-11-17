@@ -12,14 +12,14 @@
     <div class="col-9 col-md-6">
 
     <!-- Search bar (not functional yet)-->
-
-        <div>
-          <form action="/forum" method="POST">
-            <input type="text" name="key_word">
-            <input type="submit" name="new search">
+    <nav class="navbar">
+        <div class="container-fluid">
+          <form class="d-flex" action="/forum" method="POST">
+            <input class="form-control me-2" type="text" name="key_word">
+            <button class="btn btn-outline-success" type="submit" name="new search">Search</button>
           </form>
         </div>
-  
+    </nav>
 
     <!-- Display only matched Question and Answer contents according to search result-->
     <h3>Matched Results</h3>
@@ -76,7 +76,7 @@
             </form>
         </li>
     {% endfor %}
-    </ol> 
+    </ol>
     </div>
 
     <!-- Let users input question -->
