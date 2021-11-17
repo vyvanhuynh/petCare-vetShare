@@ -7,24 +7,51 @@
     <h1>Pet Care Discussion Forum</h1>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row">
 
     <div class="col-9 col-md-6">
-    <h2>Questions and Answers</h2>
 
-    
+    <!-- Search bar (not functional yet)-->
 
-    <!-- Search bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" name="key_word" placeholder="Enter a keyword" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit" name="new search">Search</button>
+        <div>
+          <form action="/forum" method="POST">
+            <input type="text" name="key_word">
+            <input type="submit" name="new search">
           </form>
         </div>
-    </nav>
+  
 
-    <!-- Questions and Answers -->
+    <!-- Display only matched Question and Answer contents according to search result-->
+    <h3>Matched Results</h3>
+    <ol>
+        {% for matched_question in matched_questions|sort(attribute='vote_count', reverse = True) %}
+            <li>
+                <form action="/forum" method="POST">
+                <input type="hidden" id="question_id" name="question_id" value={{matched_question.question_id}}>
+                <p>{{ matched_question.question_body }}
+                    <input type="submit" name="new vote" value="Vote" >
+                    Vote number: {{ matched_question.vote_count }}
+                </p>
+    
+                <ul>
+                    {% for answer in matched_question.answers %}
+                        <li>{{ answer.answer_body }}</li>
+                    {% endfor %}
+                        <p>
+                            Your answer <input type="text" name="new_answer">
+                        </p>
+                        <p>
+                            <input type="submit" name="new answer">
+                        </p>
+                </ul>
+                </form>
+            </li>
+        {% endfor %}
+    </ol>
+        
+
+    <!-- Display all Question and Answer contents-->
+    <h2>All Questions and Answers</h2> 
     <ol>
     {% for question in questions|sort(attribute='vote_count', reverse = True) %}
         <li>
@@ -49,9 +76,10 @@
             </form>
         </li>
     {% endfor %}
-    </ol>
+    </ol> 
     </div>
 
+    <!-- Let users input question -->
     <div class="col-3 col-md-6">
         <h3>Ask A Question</h3>
         <form action="/forum" method="POST">
@@ -63,6 +91,7 @@
                 <input type="submit" name="new question">
             </p>
         </form>
+        <!-- the link to lookup nearby vets -->
         <h4>
             Do you need to look up a vet nearby?
             <a href="/map">Look up nearby vet</a>

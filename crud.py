@@ -46,7 +46,7 @@ def create_vet(last_name,license_type,license_number,verification_status,is_vet_
 
 
 def verify_vet(user_id):
-    """Verify vet"""
+    """Verify vet/Update vet_pending status to False"""
     vet_verified = Vet.query.filter_by(user_id=user_id).first()
     vet_verified.is_vet_pending = False
     user_vet_verified = User.query.filter_by(user_id=user_id).first()
@@ -83,6 +83,8 @@ def get_question_by_question_id(question_id):
 def get_question_by_question_body(question_body):
     return Question.query.filter(Question.question_body == question_body).first()
 
+def get_questions_by_keyword(keyword):
+    return Question.query.filter(Question.question_body.like("%"+keyword+"%")).all()
 
 def create_answer(date_created, answer_body, vet, question):
     """Create and return a new answer to a question"""

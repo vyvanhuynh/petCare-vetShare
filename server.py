@@ -6,7 +6,7 @@ from flask import (Flask, render_template, request, flash, session,
                    redirect)
 from flask_msearch import Search
 from model import connect_to_db
-import crud
+import crud, model
 from jinja2 import StrictUndefined
 from datetime import datetime
 
@@ -121,14 +121,15 @@ def verify_vet():
     return redirect('/admin')
 
 
-@app.route('/forum')
-def display_forum():
-    questions = crud.list_all_questions()
-    return render_template('forum.html', questions=questions)
+# @app.route('/forum')
+# def display_forum():
+#     questions = crud.list_all_questions()
+#     return render_template('forum.html', questions=questions, matched_questions=questions)
 
 
-@app.route('/forum', methods = ["POST"])
+@app.route('/forum', methods = ["GET","POST"])
 def submit_question_answer_vote():
+    
     # create question
     date_created = datetime.now()
     comment_count = randint(1,10)
@@ -162,8 +163,17 @@ def submit_question_answer_vote():
             crud.create_vote(question_id, user_id, user, question)
             crud.increase_vote(question_id)
 
+    
+    questions = crud.list_all_questions()
+    # search for questions based on keyword 
+    if "new search" in request.form:
+        keyword = str(request.form.get("key_word"))
+        matched_questions = crud.get_questions_by_keyword(keyword)
+        return render_template('forum.html', questions=questions, matched_questions=matched_questions)
 
-    return redirect('/forum')
+    # display all questions and answers in db
+    return render_template('forum.html', questions=questions, matched_questions=[])
+ 
 
 
 @app.route("/map")
