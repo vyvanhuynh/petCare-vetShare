@@ -16,8 +16,6 @@ app.secret_key = "pet"
 app.jinja_env.undefined = StrictUndefined
 
 
-
-
 @app.route('/')
 def create_homepage():
     return render_template('homepage.html')
@@ -122,11 +120,6 @@ def verify_vet():
     return redirect('/admin')
 
 
-# @app.route('/forum')
-# def display_forum():
-#     questions = crud.list_all_questions()
-#     return render_template('forum.html', questions=questions, matched_questions=questions)
-
 
 @app.route('/forum', methods = ["GET","POST"])
 def submit_question_answer_vote():
@@ -176,49 +169,11 @@ def submit_question_answer_vote():
     return render_template('forum.html', questions=questions, matched_questions=[])
  
 
-
 @app.route("/map")
 def view_vet_map():
     """Show map of vets."""
 
     return render_template("map.html")
-
-# @app.route("/api/map")
-# def show_map_info(): 
-
-#     url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
-#     # url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=15000&keyword=vet&key=AIzaSyBgC9H3LJ18Ycgcls2cSyHSrI2QaYbzN6o"
-
-    
-#     here = geocoder.ip('me')
-
-#     place_ls = []
-#     keywords = ['vet', 'veterinary clinic', 'animal hospital', 'pet hospital']
-#     for keyword in keywords:
-#         payload = {
-#             'location': f'{here.lat},{here.lng}',
-#             'radius': '40000',
-#             'keyword': keyword,
-#             'key': 'AIzaSyBgC9H3LJ18Ycgcls2cSyHSrI2QaYbzN6o'
-#         }
-#         response = requests.get(url, params=payload)
-#         place_data = response.json()
-#         place_ls.append(place_data)
-  
-#     result_ls = []
-#     for place in place_ls:
-#         for result in place['results']:
-#             result_ls.append(result)
-  
-    
-#     first_place = result_ls[0]
-
-#     return jsonify(first_place)
-    
-
-
-
-
 
 
 if __name__ == "__main__":
