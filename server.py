@@ -3,13 +3,18 @@
 from random import randint
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect)
+                   redirect, url_for)
 from flask_msearch import Search
 from model import connect_to_db
 import crud, model
 from jinja2 import StrictUndefined
 from datetime import datetime
+import os
+import cloudinary.uploader
 
+CLOUDINARY_KEY = os.environ['CLOUDINARY_KEY']
+CLOUDINARY_SECRET = os.environ['CLOUDINARY_SECRET']
+CLOUD_NAME = "dzezncjgc"
 
 app = Flask(__name__)
 app.secret_key = "pet"
@@ -195,6 +200,21 @@ def submit_answer_vote():
     # display all questions and answers in db
     return render_template('forum.html', questions=questions, matched_questions=[])
  
+
+@app.route("/post_image", methods = ["POST"])
+def submit_image():
+    images_file = request.files['images-file']
+    result = cloudinary.uploader.upload(images_file, api_key=CLOUDINARY_KEY, api_secret=CLOUDINARY_SECRET, cloud_name=CLOUD_NAME)
+    img_url = result['secure_url'] # need to save this url to db
+
+    return redirect(url_for('show_image', imgURL=img_url))
+
+
+@app.route('/show-image')
+def show_image():
+    img_url = request.args.get('imgURL')
+    return render_template('show_img.html', img_src=img_url)
+
 
 @app.route("/map")
 def view_vet_map():
