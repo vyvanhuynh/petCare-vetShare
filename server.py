@@ -120,20 +120,27 @@ def verify_vet():
     return redirect('/admin')
 
 
-
-@app.route('/forum', methods = ["GET","POST"])
-def submit_question_answer_vote():
-    
+@app.route("/submit_question", methods=["POST"])
+def submit_question():
+    """Add a question to our database."""
     # create question
     date_created = datetime.now()
-    comment_count = randint(1,10)
-    question_body = request.form.get("new_question")
+    comment_count = 0 # still need to be updating
+    question_body = request.form.get("questionBody")
     vote_count = 0
     email = session['email']
     user = crud.get_user_by_email(email)
-    if "new question" in request.form:
-        crud.create_question(date_created, comment_count, question_body, vote_count,user)
+    crud.create_question(date_created, comment_count, question_body, vote_count, user)
+    return "Your question has been added"
 
+
+@app.route('/forum', methods = ["GET","POST"])
+def submit_answer_vote():
+    
+    date_created = datetime.now()
+    email = session['email']
+    user = crud.get_user_by_email(email)
+    
     # create answer if user is a vet
     answer_body = request.form.get("new_answer")
     vet = crud.get_vet_by_user(user) 

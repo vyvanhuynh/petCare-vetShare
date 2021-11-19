@@ -1,29 +1,36 @@
 {% extends 'base.html' %}
 {% block title %}Pet Care Discussion Forum{% endblock %}
 
+{% block head %}
+<script
+    src="https://code.jquery.com/jquery-3.4.0.js"
+    integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
+    crossorigin="anonymous">
+</script>
+{% endblock %}
 
 {% block body %}
-    <div class="row">
+<div class="row">
     <h1>Pet Care Discussion Forum</h1>
-    </div>
+</div>
 
-    <div class="row">
+<div class="row">
 
-    <div class="col-9 col-md-6">
+    <div class="col-6 col-md-6">
 
-    <!-- Search bar (not functional yet)-->
-    <nav class="navbar">
-        <div class="container-fluid">
-          <form class="d-flex" action="/forum" method="POST">
-            <input class="form-control me-2" type="text" name="key_word">
-            <button class="btn btn-outline-success" type="submit" name="new search">Search</button>
-          </form>
-        </div>
-    </nav>
+        <!-- Search bar -->
+        <nav class="navbar">
+            <div class="container-fluid">
+            <form class="d-flex" action="/forum" method="POST">
+                <input class="form-control me-2" type="text" name="key_word">
+                <button class="btn btn-outline-success" type="submit" name="new search">Search</button>
+            </form>
+            </div>
+        </nav>
 
-    <!-- Display only matched Question and Answer contents according to search result-->
-    <h3>Matched Results</h3>
-    <ol>
+        <!-- Display only matched Question and Answer contents according to search result-->
+        <h3>Matched Results</h3>
+        <ol>
         {% for matched_question in matched_questions|sort(attribute='vote_count', reverse = True) %}
             <li>
                 <form action="/forum" method="POST">
@@ -32,7 +39,7 @@
                     <input type="submit" name="new vote" value="Vote" >
                     Vote number: {{ matched_question.vote_count }}
                 </p>
-    
+                Answers:
                 <ul>
                     {% for answer in matched_question.answers %}
                         <li>{{ answer.answer_body }}</li>
@@ -47,50 +54,54 @@
                 </form>
             </li>
         {% endfor %}
-    </ol>
-        
+        </ol>
 
-    <!-- Display all Question and Answer contents-->
-    <h2>All Questions and Answers</h2> 
-    <ol>
-    {% for question in questions|sort(attribute='vote_count', reverse = True) %}
-        <li>
-            <form action="/forum" method="POST">
-            <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
-            <p>{{ question.question_body }}
-                <input type="submit" name="new vote" value="Vote" >
-                Vote number: {{ question.vote_count }}
-            </p>
-
-            <ul>
-                {% for answer in question.answers %}
-                    <li>{{ answer.answer_body }}</li>
-                {% endfor %}
-                    <p>
-                        Your answer <input type="text" name="new_answer">
+        <!-- Display all Question and Answer contents-->
+        <div class="col-6 col-md-12" id="quesans">
+            <h2>All Questions and Answers</h2> 
+            <ol>
+            {% for question in questions|sort(attribute='vote_count', reverse = True) %}
+                <li>
+                    <form action="/forum" method="POST">
+                    <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
+                    <p>{{ question.question_body }}
+                        <input type="submit" name="new vote" value="Vote" >
+                        Vote number: {{ question.vote_count }}
                     </p>
-                    <p>
-                        <input type="submit" name="new answer">
-                    </p>
-            </ul>
-            </form>
-        </li>
-    {% endfor %}
-    </ol>
+                    Answers:
+                    <ul>
+                        {% for answer in question.answers %}
+                            <li>{{ answer.answer_body }}</li>
+                        {% endfor %}
+                            <p>
+                                Your answer <input type="text" name="new_answer">
+                            </p>
+                            <p>
+                                <input type="submit" name="new answer">
+                            </p>
+                    </ul>
+                    </form>
+                </li>
+            {% endfor %}
+            </ol>
+        </div>
     </div>
 
-    <!-- Let users input question -->
-    <div class="col-3 col-md-6">
+    <!-- Let users input a new question -->
+    <div class="col-6 col-md-6">
         <h3>Ask A Question</h3>
-        <form action="/forum" method="POST">
+        <form id="question_form" action="/submit_question" method="POST">
             <p>
                 Your question 
             </p>
-            <textarea type="text" name="new_question" id="new_question"></textarea>
+            <textarea type="text" name="new_question" id="new-question"></textarea>
             <p>
                 <input type="submit" name="new question">
             </p>
         </form>
+        <script src="/static/js/submit-question.js"></script>
+
+
         <!-- the link to lookup nearby vets -->
         <h4>
             Do you need to look up a vet nearby?
@@ -98,7 +109,7 @@
         </h4>
     </div>
 
-    </div>
+</div>
  
     
 {% endblock %}
