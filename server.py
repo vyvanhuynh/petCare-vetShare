@@ -122,7 +122,7 @@ def verify_vet():
 
 @app.route("/submit_question", methods=["POST"])
 def submit_question():
-    """Add a question to our database."""
+    """Add a question to the database."""
     # create question
     date_created = datetime.now()
     comment_count = 0 # still need to be updating
@@ -132,6 +132,26 @@ def submit_question():
     user = crud.get_user_by_email(email)
     crud.create_question(date_created, comment_count, question_body, vote_count, user)
     return "Your question has been added"
+
+
+# @app.route("/submit_answer", methods=["POST"])
+# def submit_answer():
+#     """Add an answer to the database."""
+#     # create answer
+#     date_created = datetime.now()
+#     email = session['email']
+#     user = crud.get_user_by_email(email)
+#     answer_body = request.form.get("answerBody")
+#     vet = crud.get_vet_by_user(user) 
+#     question_id = request.form.get("question_id")
+#     question = crud.get_question_by_question_id(question_id)
+#     if vet == None :
+#         flash("Sorry, you are not allowed to answer the question because you're not registered as a vet")
+#     elif vet.is_vet_pending == True:
+#         flash ("Sorry, your vet status is pending")
+#     else:
+#         crud.create_answer(date_created, answer_body, vet, question)
+#     return "Your answer has been added"
 
 
 @app.route('/forum', methods = ["GET","POST"])

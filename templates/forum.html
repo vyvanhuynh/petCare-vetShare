@@ -62,25 +62,29 @@
             <ol>
             {% for question in questions|sort(attribute='vote_count', reverse = True) %}
                 <li>
-                    <form action="/forum" method="POST">
-                    <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
-                    <p>{{ question.question_body }}
-                        <input type="submit" name="new vote" value="Vote" >
-                        Vote number: {{ question.vote_count }}
-                    </p>
-                    Answers:
-                    <ul>
-                        {% for answer in question.answers %}
-                            <li>{{ answer.answer_body }}</li>
-                        {% endfor %}
-                            <p>
-                                Your answer <input type="text" name="new_answer">
-                            </p>
-                            <p>
-                                <input type="submit" name="new answer">
-                            </p>
-                    </ul>
+                    <form id="vote_form" action="/forum" method="POST">
+                        <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
+                        <p>{{ question.question_body }}
+                            <input type="submit" name="new vote" value="Vote" >
+                            Vote number: {{ question.vote_count }}
+                        </p>
                     </form>
+                    <form id="answer_form" action="/forum" method="POST">
+                        <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
+                        Answers:
+                        <ul>
+                            {% for answer in question.answers %}
+                                <li>{{ answer.answer_body }}</li>
+                            {% endfor %}
+                                <p>
+                                    Your answer <input type="text" name="new_answer" id="new-answer">
+                                </p>
+                                <p>
+                                    <input type="submit" name="new answer">
+                                </p>
+                        </ul>
+                    </form>
+                    <!-- <script src="/static/js/submit-answer.js"></script> -->
                 </li>
             {% endfor %}
             </ol>
