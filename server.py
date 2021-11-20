@@ -153,7 +153,7 @@ def submit_image():
     result = cloudinary.uploader.upload(images_file, api_key=CLOUDINARY_KEY, api_secret=CLOUDINARY_SECRET, cloud_name=CLOUD_NAME)
     img_url = result['secure_url'] 
 
-    return redirect(url_for('submit_question', imgURL=img_url))
+    return redirect(url_for('show_image', imgURL=img_url))
 
 
 @app.route('/show-image')
