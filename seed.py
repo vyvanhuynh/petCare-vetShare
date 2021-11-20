@@ -90,8 +90,9 @@ for question,answer in zip(question_content_ls,answer_content_ls):
     comment_count = randint(1,10)
     question_body = question
     vote_count = randint(1,10)
+    img_url = 'None'
     user = choice(users_ls)
-    db_question = crud.create_question(date_created,comment_count,question_body,vote_count,user)
+    db_question = crud.create_question(date_created,comment_count,question_body,vote_count,img_url,user)
     
 
     # Create 10 according answers

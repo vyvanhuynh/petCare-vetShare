@@ -76,6 +76,7 @@ class Question(db.Model):
     comment_count = db.Column(db.Integer)
     question_body = db.Column(db.Text)
     vote_count = db.Column(db.Integer)
+    img_url = db.Column(db.Text, default = 'None')
 
     user = db.relationship("User", backref = "questions")
     # answers = a list of Answer objects

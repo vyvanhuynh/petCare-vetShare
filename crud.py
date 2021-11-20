@@ -63,13 +63,14 @@ def list_all_vets_as_users():
 def get_vet_by_user(user):
     return Vet.query.filter(Vet.user == user).first()
 
-def create_question(date_created, comment_count, question_body, vote_count,user):
+def create_question(date_created, comment_count, question_body, vote_count, img_url, user):
     """Create and return a new question"""
 
     question = Question(date_created=date_created, 
                     comment_count=comment_count,
                     question_body=question_body,
                     vote_count=vote_count,
+                    img_url=img_url,
                     user=user)
 
     db.session.add(question)

@@ -10,6 +10,7 @@ $('#question_form').on('submit', evt => {
   $.post('/submit_question', formInputs, res => {
     alert(res);
     document.getElementById("question_form").reset();
+    // document.getElementById("new_answer").reset();
     $( "#quesans" ).load(window.location.href + " #quesans" );
   });
 });

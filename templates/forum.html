@@ -62,15 +62,12 @@
             <ol>
             {% for question in questions|sort(attribute='vote_count', reverse = True) %}
                 <li>
-                    <form id="vote_form" action="/forum" method="POST">
+                    <form id="vote_answer_form" action="/forum" method="POST">
                         <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
                         <p>{{ question.question_body }}
                             <input type="submit" name="new vote" value="Vote" >
                             Vote number: {{ question.vote_count }}
                         </p>
-                    </form>
-                    <form id="answer_form" action="/forum" method="POST">
-                        <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
                         Answers:
                         <ul>
                             {% for answer in question.answers %}
@@ -84,7 +81,6 @@
                                 </p>
                         </ul>
                     </form>
-                    <!-- <script src="/static/js/submit-answer.js"></script> -->
                 </li>
             {% endfor %}
             </ol>
@@ -100,8 +96,15 @@
             </p>
             <textarea type="text" name="new_question" id="new-question"></textarea>
             <p>
-                <input type="submit" name="new question">
+                <input type="submit">
             </p>
+
+            <!-- form to upload an image
+            <form action="/post_image" method="POST" enctype="multipart/form-data">
+                <input type="file" name="images-file">
+                <input type="submit">
+            </form> -->
+          
         </form>
         <script src="/static/js/submit-question.js"></script>
 
