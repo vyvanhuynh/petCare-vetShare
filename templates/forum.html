@@ -64,7 +64,11 @@
                 <li>
                     <form id="vote_answer_form" action="/forum" method="POST">
                         <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
+                        
                         <p>{{ question.question_body }}
+                            {% if question.img_url %}
+                                <img src="{{ question.img_url }}">
+                            {% endif %}
                             <input type="submit" name="new vote" value="Vote" >
                             Vote number: {{ question.vote_count }}
                         </p>
@@ -90,13 +94,16 @@
     <!-- Let users input a new question -->
     <div class="col-6 col-md-6">
         <h3>Ask A Question</h3>
-        <form id="question_form" action="/submit_question" method="POST">
+        <form id="question_form" action="/submit_question" method="POST" enctype="multipart/form-data">
+            
             <p>
                 Your question 
             </p>
             <textarea type="text" name="new_question" id="new-question"></textarea>
+            <input type="file" name="images-file" id="new-image">
             <p>
-                <input type="submit">
+                
+                <input type="submit" name="new question">
             </p>
 
           
@@ -104,10 +111,10 @@
         <script src="/static/js/submit-question.js"></script>
 
         <!-- form to upload an image -->
-        <form action="/post_image" method="POST" enctype="multipart/form-data">
+        <!-- <form action="/post_image" method="POST" enctype="multipart/form-data">
             <input type="file" name="images-file">
             <input type="submit">
-        </form>
+        </form> -->
 
         <!-- the link to lookup nearby vets -->
         <div>

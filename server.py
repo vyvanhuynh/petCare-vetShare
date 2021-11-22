@@ -125,42 +125,31 @@ def verify_vet():
     return redirect('/admin')
 
 
-
 @app.route("/submit_question", methods=["POST"])
 def submit_question():
     """Add a question to the database."""
-
-    # get the image uploaded
-    img_url = request.args.get('imgURL')
-    print("*" * 20)
-    print(img_url)
-    print("*" * 20)
-
-    # get the rest of info to create question
+    
+    # set the info to create question
     date_created = datetime.now()
     comment_count = 0 # still need to be updating
-    question_body = request.form.get("questionBody")
+    question_body = request.form.get("new-question")
     vote_count = 0
     email = session['email']
     user = crud.get_user_by_email(email)
-    crud.create_question(date_created, comment_count, question_body, vote_count, img_url, user)
+
+    # get the image file from Ajax
+    images_file = request.files.get("images-file", None)
+    if images_file:
+        result = cloudinary.uploader.upload(images_file, api_key=CLOUDINARY_KEY, api_secret=CLOUDINARY_SECRET, cloud_name=CLOUD_NAME)
+        img_url = result['secure_url'] 
+        crud.create_question(date_created, comment_count, question_body, vote_count, img_url, user)
+
+    # handle submission without image uploaded
+    else:
+        img_url = ""
+        crud.create_question(date_created, comment_count, question_body, vote_count, img_url, user)
+
     return "Your question has been added"
-
-
-@app.route("/post_image", methods=["POST"])
-def submit_image():
-    images_file = request.files['images-file']
-    result = cloudinary.uploader.upload(images_file, api_key=CLOUDINARY_KEY, api_secret=CLOUDINARY_SECRET, cloud_name=CLOUD_NAME)
-    img_url = result['secure_url'] 
-
-    return redirect(url_for('show_image', imgURL=img_url))
-
-
-@app.route('/show-image')
-def show_image():
-    img_url = request.args.get('imgURL')
-    return render_template('show_img.html', img_src=img_url)
-
 
 # @app.route("/submit_answer", methods=["POST"])
 # def submit_answer():
@@ -182,8 +171,6 @@ def show_image():
 #     return "Your answer has been added"
 
 
-
-
 @app.route('/forum', methods = ["GET","POST"])
 def submit_answer_vote():
     
@@ -203,7 +190,7 @@ def submit_answer_vote():
             flash ("Sorry, your vet status is pending")
         else:
             crud.create_answer(date_created, answer_body, vet, question)
-            answer_body = ""
+            # answer_body = ""
             return redirect('/forum')
     
     # create vote 
@@ -227,12 +214,6 @@ def submit_answer_vote():
 
     # display all questions and answers in db
     return render_template('forum.html', questions=questions, matched_questions=[])
-    
-
-
-
-
-
 
 
 @app.route("/map")
