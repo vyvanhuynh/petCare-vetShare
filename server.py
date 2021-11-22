@@ -131,7 +131,7 @@ def submit_question():
     
     # set the info to create question
     date_created = datetime.now()
-    comment_count = 0 # still need to be updating
+    comment_count = 0 
     question_body = request.form.get("new-question")
     vote_count = 0
     email = session['email']
@@ -190,7 +190,7 @@ def submit_answer_vote():
             flash ("Sorry, your vet status is pending")
         else:
             crud.create_answer(date_created, answer_body, vet, question)
-            # answer_body = ""
+            crud.increase_comment_count(question_id)
             return redirect('/forum')
     
     # create vote 

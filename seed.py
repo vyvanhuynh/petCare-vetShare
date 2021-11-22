@@ -87,10 +87,10 @@ for question,answer in zip(question_content_ls,answer_content_ls):
 
     # Create 10 questions
     date_created = datetime.now()
-    comment_count = randint(1,10)
+    comment_count = 1
     question_body = question
     vote_count = randint(1,10)
-    img_url = 'None'
+    img_url = ''
     user = choice(users_ls)
     db_question = crud.create_question(date_created,comment_count,question_body,vote_count,img_url,user)
     

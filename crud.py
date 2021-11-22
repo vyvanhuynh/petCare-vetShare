@@ -131,6 +131,11 @@ def increase_vote(question_id):
     
     db.session.commit()
 
+def increase_comment_count(question_id):
+    question = Question.query.filter(Question.question_id == question_id).first()
+    question.comment_count += 1
+    
+    db.session.commit()
 
 if __name__ == '__main__':
     from server import app
