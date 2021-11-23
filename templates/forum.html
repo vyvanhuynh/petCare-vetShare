@@ -29,7 +29,7 @@
         </nav>
 
         <!-- Display only matched Question and Answer contents according to search result-->
-        <h3>Matched Results</h3>
+        <!-- <h3>Matched Results</h3> -->
         <ol>
         {% for matched_question in matched_questions|sort(attribute='vote_count', reverse = True) %}
             <li>
@@ -42,7 +42,11 @@
                 Answers:
                 <ul>
                     {% for answer in matched_question.answers %}
-                        <li>{{ answer.answer_body }}</li>
+                        <li>{{ answer.answer_body }}. 
+                            <div class="answer-info">
+                                answered by Dr. {{ answer.vet.last_name }}
+                            </div>
+                        </li>
                     {% endfor %}
                         <p>
                             Your answer <input type="text" name="new_answer">
@@ -75,7 +79,11 @@
                         Answers:
                         <ul>
                             {% for answer in question.answers %}
-                                <li>{{ answer.answer_body }}</li>
+                                <li>{{ answer.answer_body }}. 
+                                    <div class="answer-info">
+                                        answered by Dr. {{ answer.vet.last_name }}
+                                    </div>
+                                </li>
                             {% endfor %}
                                 <p>
                                     Your answer <input type="text" name="new_answer" id="new-answer">
