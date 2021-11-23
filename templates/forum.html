@@ -64,11 +64,13 @@
         <div class="col-6 col-md-12" id="quesans">
             <h2>All Questions and Answers</h2> 
             <ol>
+            
             {% for question in questions|sort(attribute='vote_count', reverse = True) %}
+                <div>
                 <li>
                     <form id="vote_answer_form" action="/forum" method="POST">
                         <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
-                        
+                        <!-- Handle votes -->
                         <p>{{ question.question_body }}
                             {% if question.img_url %}
                                 <img src="{{ question.img_url }}">
@@ -76,24 +78,36 @@
                             <input type="submit" name="new vote" value="Vote" >
                             Vote number: {{ question.vote_count }}
                         </p>
-                        Answers:
-                        <ul>
-                            {% for answer in question.answers %}
+
+                        <!-- Display answers as collapse -->
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#collapseAnswer_{{ loop.index }}" aria-expanded="false" aria-controls="collapseAnswer_{{ loop.index }}">
+                            Show answers
+                        </button>
+                        </p>
+                        
+                        <div class="collapse" id="collapseAnswer_{{ loop.index }}">
+                          <div class="card card-body">
+                            <ul>
+                                {% for answer in question.answers %}
                                 <li>{{ answer.answer_body }}. 
                                     <div class="answer-info">
                                         answered by Dr. {{ answer.vet.last_name }}
                                     </div>
                                 </li>
-                            {% endfor %}
-                                <p>
-                                    Your answer <input type="text" name="new_answer" id="new-answer">
-                                </p>
-                                <p>
-                                    <input type="submit" name="new answer">
-                                </p>
-                        </ul>
+                                {% endfor %}
+                            </ul>
+                          </div>
+                        </div>
+
+                        <!-- Input new answers -->
+                        <p>
+                            Your answer <input type="text" name="new_answer" id="new-answer">
+                        </p>
+                            <input type="submit" name="new answer">
                     </form>
                 </li>
+                </div>
             {% endfor %}
             </ol>
         </div>
