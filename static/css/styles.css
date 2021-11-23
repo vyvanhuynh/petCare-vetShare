@@ -2,4 +2,8 @@
 
 .answer-info {
     color: gray;
- }
+}
+
+.vote-count {
+    color: green
+}
