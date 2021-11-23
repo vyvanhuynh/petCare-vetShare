@@ -46,10 +46,10 @@ def register_user():
 
     # check if the email and password are valid and create a new user if they are
     if db_email:
-        flash(f"{email} is already registered. Please try a different email")
+        flash(f"{email} is already registered. Please try a different email", "warning")
     else:
         crud.create_user(email, password, is_vet, is_admin)        
-        flash("Your account has been successfully created! You can now log in")        
+        flash("Your account has been successfully created! You can now log in", "success")        
     return redirect('/')
 
 
@@ -70,7 +70,7 @@ def register_vet():
 
     # check if the email and password are valid
     if db_user:
-        flash(f"{email} is already registered. Please try a different email")
+        flash(f"{email} is already registered. Please try a different email", "warning")
     else:
         is_vet = True
         is_admin = False
@@ -87,7 +87,7 @@ def register_vet():
         # create a vet from this new user
         crud.create_vet(last_name,license_type,license_number,verification_status,is_vet_pending,user)  
 
-        flash(f"Thank you, {email} is successfully registered! Your vet status is pending. You will be able to answer questions once the admin verify your status!")     
+        flash(f"Thank you, {email} is successfully registered! Your vet status is pending. You will be able to answer questions once the admin verify your status!", "success")     
     return redirect('/')
 
 
@@ -100,14 +100,14 @@ def login():
     db_login = crud.validate_login(email,password)
     if db_login:
         session['email'] = email
-        flash(f"Welcome,{email}!")
+        flash(f"Welcome,{email}!", "success")
         user = crud.get_user_by_email(email)
         if user.is_admin == True:
             return redirect('/admin')
         else: 
             return redirect('/forum')
     else:
-        flash("Please try again, we can't verify your email and/or your password")
+        flash("Please try again, we can't verify your email and/or your password", "danger")
         return redirect('/')
     
 
@@ -118,6 +118,7 @@ def admin_activities():
     users = crud.list_all_users()
     vets = crud.list_all_vets_as_users()
     return render_template('admin_page.html', users = users, vets=vets)
+
 
 @app.route('/admin/<email>')
 def show_user_details(email):
@@ -138,7 +139,7 @@ def verify_vet():
     user_id = request.form.get("user_id")
     email = request.form.get("email")
     crud.verify_vet(user_id)
-    flash (f"Succesfully verify {email} as a vet!")
+    flash (f"Succesfully verify {email} as a vet!", "success")
     return redirect('/admin')
 
 
@@ -184,9 +185,9 @@ def submit_answer_vote():
     question = crud.get_question_by_question_id(question_id)
     if "new answer" in request.form and answer_body != "":
         if vet == None :
-            flash("Sorry, you are not allowed to answer the question because you're not registered as a vet")
+            flash("Sorry, you are not allowed to answer the question because you're not registered as a vet", "warning")
         elif vet.is_vet_pending == True:
-            flash ("Sorry, your vet status is pending")
+            flash ("Sorry, your vet status is pending. You will be able to answer question once your status is verified", "info")
         else:
             crud.create_answer(date_created, answer_body, vet, question)
             crud.increase_comment_count(question_id)
@@ -197,7 +198,7 @@ def submit_answer_vote():
         user_id = user.user_id
         db_vote = crud.get_vote_by_question_id_and_user_id(question_id, user_id)
         if db_vote:
-            flash(f"Sorry, you can only vote once per question")
+            flash(f"Sorry, you can only vote once per question", "warning")
         else:
             crud.create_vote(question_id, user_id, user, question)
             crud.increase_vote(question_id)
@@ -209,7 +210,7 @@ def submit_answer_vote():
         keyword = str(request.form.get("key_word"))
         if keyword == "":
             matched_questions = []
-            flash(f"Please input a keyword to search for matched questions")
+            flash(f"Please input a keyword to search for matched questions", "warning")
         else:
             matched_questions = crud.get_questions_by_keyword(keyword)
         return render_template('forum.html', questions=questions, matched_questions=matched_questions)
