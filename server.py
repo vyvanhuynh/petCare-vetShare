@@ -3,10 +3,9 @@
 from random import randint
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, url_for)
-from flask_msearch import Search
+                   redirect)
 from model import connect_to_db
-import crud, model
+import crud
 from jinja2 import StrictUndefined
 from datetime import datetime
 import os
@@ -23,16 +22,22 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def create_homepage():
+    """Homepage."""
+
     return render_template('homepage.html')
 
 
 @app.route('/register')
 def show_registration_form():
+    """Show the registration form for regular user."""
+
     return render_template('register.html')
 
 
 @app.route('/register', methods = ["POST"])
 def register_user():
+    """Register a user."""
+
     email = request.form.get("email")
     password = request.form.get("password")
     is_vet = False
@@ -50,11 +55,15 @@ def register_user():
 
 @app.route('/vet_register')
 def show_vet_registration_form():
+    """Show the form of vet registration."""
+
     return render_template('vet_register.html')
 
 
 @app.route('/vet_register', methods = ["POST"])
 def register_vet():
+    """Register a user as a vet."""
+
     email = request.form.get("email")
     password = request.form.get("password")
     db_user = crud.get_user_by_email(email)
@@ -84,6 +93,8 @@ def register_vet():
 
 @app.route('/login', methods = ["POST"])
 def login():
+    """Let a user login using email and password."""
+
     email = request.form.get("email")
     password = request.form.get("password")
     db_login = crud.validate_login(email,password)
@@ -102,12 +113,16 @@ def login():
 
 @app.route('/admin')
 def admin_activities():
+    """List all users and vets in the database."""
+
     users = crud.list_all_users()
     vets = crud.list_all_vets_as_users()
     return render_template('admin_page.html', users = users, vets=vets)
 
 @app.route('/admin/<email>')
 def show_user_details(email):
+    """Show the details of each user."""
+
     user = crud.get_user_by_email(email)
     vet = crud.get_vet_by_user(user)
     if vet == None:
@@ -118,6 +133,8 @@ def show_user_details(email):
 
 @app.route('/verifying', methods = ["POST"])
 def verify_vet():
+    """Let admin verify vet."""
+
     user_id = request.form.get("user_id")
     email = request.form.get("email")
     crud.verify_vet(user_id)
@@ -127,7 +144,7 @@ def verify_vet():
 
 @app.route("/submit_question", methods=["POST"])
 def submit_question():
-    """Add a question to the database."""
+    """Add a question to the database; and search bar based on keywords."""
     
     # set the info to create question
     date_created = datetime.now()
@@ -151,29 +168,11 @@ def submit_question():
 
     return "Your question has been added"
 
-# @app.route("/submit_answer", methods=["POST"])
-# def submit_answer():
-#     """Add an answer to the database."""
-#     # create answer
-#     date_created = datetime.now()
-#     email = session['email']
-#     user = crud.get_user_by_email(email)
-#     answer_body = request.form.get("answerBody")
-#     vet = crud.get_vet_by_user(user) 
-#     question_id = request.form.get("question_id")
-#     question = crud.get_question_by_question_id(question_id)
-#     if vet == None :
-#         flash("Sorry, you are not allowed to answer the question because you're not registered as a vet")
-#     elif vet.is_vet_pending == True:
-#         flash ("Sorry, your vet status is pending")
-#     else:
-#         crud.create_answer(date_created, answer_body, vet, question)
-#     return "Your answer has been added"
-
 
 @app.route('/forum', methods = ["GET","POST"])
 def submit_answer_vote():
-    
+    """Handle answer and vote submission."""
+
     date_created = datetime.now()
     email = session['email']
     user = crud.get_user_by_email(email)
@@ -204,7 +203,6 @@ def submit_answer_vote():
             crud.increase_vote(question_id)
             return redirect('/forum')
 
-    
     questions = crud.list_all_questions()
     # search for questions based on keyword 
     if "new search" in request.form:

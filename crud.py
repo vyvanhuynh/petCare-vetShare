@@ -30,7 +30,7 @@ def validate_login(email, password):
 
 
 def create_vet(last_name,license_type,license_number,verification_status,is_vet_pending,user):
-    """Create and return a new vet"""
+    """Create and return a new vet."""
 
     vet = Vet(last_name=last_name,
             license_type=license_type,
@@ -46,7 +46,8 @@ def create_vet(last_name,license_type,license_number,verification_status,is_vet_
 
 
 def verify_vet(user_id):
-    """Verify vet/Update vet_pending status to False"""
+    """Verify vet/Update vet_pending status to False."""
+
     vet_verified = Vet.query.filter_by(user_id=user_id).first()
     vet_verified.is_vet_pending = False
     user_vet_verified = User.query.filter_by(user_id=user_id).first()
@@ -64,7 +65,7 @@ def get_vet_by_user(user):
     return Vet.query.filter(Vet.user == user).first()
 
 def create_question(date_created, comment_count, question_body, vote_count, img_url, user):
-    """Create and return a new question"""
+    """Create and return a new question."""
 
     question = Question(date_created=date_created, 
                     comment_count=comment_count,
@@ -91,7 +92,7 @@ def get_questions_by_keyword(keyword):
     return Question.query.filter(Question.question_body.like("%"+keyword+"%")).all()
 
 def create_answer(date_created, answer_body, vet, question):
-    """Create and return a new answer to a question"""
+    """Create and return a new answer to a question."""
 
     answer = Answer(date_created=date_created,
                 answer_body=answer_body,
@@ -110,7 +111,7 @@ def get_answer_by_question_id(question_id):
     return Answer.query.filter(Answer.question_id == question_id).all()
 
 def create_vote(question_id, user_id, user, question):
-    """Create and return a vote"""
+    """Create and return a vote."""
 
     vote = Vote(question_id=question_id,
                 user_id=user_id,
