@@ -1,8 +1,7 @@
 """ Models for pet care app. """
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.ext.hybrid import hybrid_property
-
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -125,6 +124,53 @@ class Vote(db.Model):
     def __repr__(self):
         return f"<Vote vote_id={self.vote_id} question_id={self.question_id} user_id={self.user_id}>"
 
+
+def example_data():
+    """Create some sample datas."""
+
+    # In case this is run more than once, empty out existing data
+    User.query.delete()
+    Vet.query.delete()
+    Question.query.delete()
+    Answer.query.delete()
+    Vote.query.delete()
+
+    # Add sample users, vets, questions, answers and votes 
+    testvetu = User(email="u1@test.com", 
+            password="testu1", 
+            is_vet=True, 
+            is_admin=False)
+    testadu = User(email="u2@test.com", 
+            password="testu2", 
+            is_vet=False, 
+            is_admin=True)
+
+    testvet = Vet(last_name="last_name",
+            license_type="license_type",
+            license_number=1234,
+            verification_status=True,
+            is_vet_pending=False,
+            user=testvetu)
+
+    testques = Question(date_created=datetime.now(), 
+                    comment_count=2,
+                    question_body="question_body",
+                    vote_count=3,
+                    img_url="",
+                    user=testadu)
+    
+    testans = Answer(date_created=datetime.now(),
+                answer_body="answer_body",
+                vet=testvet,
+                question=testques)
+
+    testvot = Vote(question_id=1,
+                user_id=1,
+                user=testadu,
+                question=testques)
+
+    db.session.add_all([testvetu, testadu, testvet, testques, testans, testvot])
+    db.session.commit()
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///petdiscussions", echo=True):

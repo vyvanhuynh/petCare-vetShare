@@ -1,7 +1,5 @@
 """ Server for pet care discussion app. """
 
-from random import randint
-
 from flask import (Flask, render_template, request, flash, session,
                    redirect)
 from model import connect_to_db
@@ -100,7 +98,7 @@ def login():
     db_login = crud.validate_login(email,password)
     if db_login:
         session['email'] = email
-        flash(f"Welcome,{email}!", "success")
+        flash(f"Welcome, {email}!", "success")
         user = crud.get_user_by_email(email)
         if user.is_admin == True:
             return redirect('/admin')
