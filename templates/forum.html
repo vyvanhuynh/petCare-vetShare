@@ -34,7 +34,9 @@
                             
                             <div class ="row p-2">
                                 <div class="col-8">
-                                    {{ question.question_body }}
+                                    <div class="bg-light text-dark">
+                                        {{ question.question_body }}
+                                    </div>
                                     {% if question.img_url %}
                                         <img src="{{ question.img_url }}" class="img-thumbnail">
                                     {% endif %}
