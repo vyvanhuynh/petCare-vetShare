@@ -140,6 +140,7 @@ def example_data():
             password="testu1", 
             is_vet=True, 
             is_admin=False)
+            
     testadu = User(email="u2@test.com", 
             password="testu2", 
             is_vet=False, 
