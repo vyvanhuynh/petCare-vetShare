@@ -4,43 +4,75 @@
 {% block nav %}{% endblock %}
 
 {% block body %}
-    <h1>Vet Registration Form</h1>
-    <form action="/vet_register" method="POST">
-        <p>
-            Email <input type="text" name="email">
-        </p>
+<div class="row p-5">
+    <div class="col-12 d-flex justify-content-center">
+        <h1>Vet Registration Form</h1>
+    </div>
+</div>
 
-        <p>
-            Password <input type="password" name="password">
-        </p>
-
-        <p>
-            Last Name <input type="text" name="last_name">
-        </p>
-
-        <p>
-            License Type <input type="text" name="license_type">
-        </p>
-
-        <p>
-            License Number <input type="number" name="license_number">
-        </p>
-
-        <p>
-            Vet Verification Status 
- 
-            <input type="radio" name="verification_status" value="active">
-            <label>active</label>
-          
-            <input type="radio" name="verification_status" value="retired">
-            <label>retired</label>
-
-            <input type="radio" name="verification_status" value="expired">
-            <label>expired</label>
-        </p>
-
-        <p>
-            <input type="submit">
-        </p>
-    </form>
+<div class="row p-4">
+    <div class="col-12 d-flex justify-content-center">
+        <form action="/vet_register" method="POST">
+            <div class="row d-flex justify-content-center top-buffer">
+                <div class="col-5 d-flex justify-content-center">
+                    <label for="email" class="form-label">Email address</label>
+                </div>
+                <div class="col-7 d-flex justify-content-center">
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center top-buffer">
+                <div class="col-5 d-flex justify-content-center">
+                    <label for="password" class="col-form-label">Password</label>
+                </div>
+                <div class="col-7 d-flex justify-content-center">
+                    <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelpInline">
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center top-buffer">
+                <div class="col-5 d-flex justify-content-center">
+                    <label for="last-name" class="col-form-label">Last Name</label>
+                </div>
+                <div class="col-7 d-flex justify-content-center">
+                    <input type="text" class="form-control" id="last-name" name="last_name" aria-describedby="passwordHelpInline">
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center top-buffer">
+                <div class="col-5 d-flex justify-content-center">
+                    <label for="license-type" class="col-form-label">License Type</label>
+                </div>
+                <div class="col-7 d-flex justify-content-center">
+                    <input type="text" class="form-control" id="license-type" name="license_type" aria-describedby="passwordHelpInline">
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center top-buffer">
+                <div class="col-5 d-flex justify-content-center">
+                    <label for="license-number" class="col-form-label">License Number</label>
+                </div>
+                <div class="col-7 d-flex justify-content-center">
+                    <input type="number" class="form-control" id="license-number" name="license_number" aria-describedby="passwordHelpInline">
+                </div>
+            </div>
+            
+            <div class="row d-flex justify-content-center top-buffer">
+                Vet Verification Status 
+                <div class="col-auto">
+                    <input type="radio" name="verification_status" value="active">
+                    <label>active</label>
+                </div>
+                <div class="col-auto">
+                    <input type="radio" name="verification_status" value="active">
+                    <label>retired</label>
+                </div>
+                <div class="col-auto">
+                    <input type="radio" name="verification_status" value="active">
+                    <label>expired</label>
+                </div>
+            </div>
+            <div class="p-4 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary ">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -7,46 +7,45 @@
 {% block body %}
 <div class="container overflow-hidden">
 
-    <div class="row">
+    <div class="row p-5">
         <div class="col-12 d-flex justify-content-center">
-        <h1>Welcome to the Pet Care Forum!</h1>
+            <h1>Welcome to Pet Care Vet Share Forum</h1>
         </div>
     </div>
 
     <div class="row">
         <div class="col-12 d-flex justify-content-center top-buffer">
-        <h4>Already have an acount? Let's log in</h4>
         </div>
         <div class="row d-flex justify-content-center">
         <form action="/login" method="POST">
             <div class="row d-flex justify-content-center top-buffer">
-                <div class="col-auto">
+                <div class="col-2 d-flex justify-content-center">
                     <label for="email" class="form-label">Email address</label>
                 </div>
-                <div class="col-auto">
+                <div class="col-3 d-flex justify-content-center">
                     <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
                 </div>
             </div>
             <div class="row d-flex justify-content-center top-buffer">
-                <div class="col-auto">
+                <div class="col-2 d-flex justify-content-center">
                     <label for="password" class="col-form-label">Password</label>
                 </div>
-                <div class="col-auto">
+                <div class="col-3 d-flex justify-content-center">
                     <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelpInline">
                 </div>
             </div>
-            <div class="col-12 d-flex justify-content-center top-buffer">
-                <p>
-                <button type="submit" class="btn btn-primary">Log In</button>
-                </p>
+            <div class="p-4 d-flex justify-content-center">
+                
+                <button type="submit" class="btn btn-primary ">Log In</button>
+                
             </div>
         </form>
-        </div>
+        </div> 
     </div>
 
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-        <h5>Don't have an acount? Please click here to register:
+        <h5>New to our forum?
             <a href="/register">Register</a>
         </h5>
         </div>
