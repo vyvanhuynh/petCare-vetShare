@@ -183,9 +183,9 @@ def submit_answer_vote():
     question = crud.get_question_by_question_id(question_id)
     if "new answer" in request.form and answer_body != "":
         if vet == None :
-            flash("Sorry, you are not allowed to answer the question because you're not registered as a vet", "warning")
+            flash("Sorry, only verified vets can answer question", "warning")
         elif vet.is_vet_pending == True:
-            flash ("Sorry, your vet status is pending. You will be able to answer question once your status is verified", "info")
+            flash ("Sorry, your vet status is pending. Please wait until your status is verified", "info")
         else:
             crud.create_answer(date_created, answer_body, vet, question)
             crud.increase_comment_count(question_id)
