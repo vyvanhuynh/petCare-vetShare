@@ -3,7 +3,7 @@
 {% block title %}{{ user.email }} - Details{% endblock %}
 
 {% block nav %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
   <div class="container-fluid">
     <a class="navbar-brand" href="/#">Pet Care Discussion Site</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,36 +21,38 @@
 {% endblock %}
 
 {% block body %}
-<h1>{{ user.email }}</h1>
-<p>
-    Is Admin?: {{ user.is_admin }}
-</p>
-<p>
-    Is Vet?: {{ user.is_vet }}
-</p>
-<p>
-    Is Vet Pending?: {{ vet.is_vet_pending }} <br>
-    (Is Vet Pending value need to be False to allow user answer question) </br>
-    Verify this vet? 
-    Go here to check the info of this vet: <a href="https://www.aavsb.org/public-resources/look-up-a-license/">Look up vet info</a>
-    <form action='/verifying' method="POST">
-        <input type="hidden" id="user_id" name="user_id" value={{user.user_id}}>
-        <input type="hidden" id="email" name="email" value={{user.email}}>
-        <input type="submit" name="verification" value="Verify">
-    </form>
-</p>
-<p>
-    Vet Lastname: {{ vet.last_name }}
-</p>
-<p>
-    Vet License Type: {{ vet.license_type }}
-</p>
-<p>
-    Vet License Number: {{ vet.license_number }}
-</p>
-<p>
-    Vet Status: {{ vet.verification_status }}
-</p>
+
+<div class="row p-4">
+  <h1>{{ user.email }}</h1>
+</div>
+
+<div class="row p-4">
+  <div class="col-12">
+    <ul>
+      <li>Is Admin: {{ user.is_admin }}</li>
+      <li class="top-buffer">Is Vet: {{ user.is_vet }}</li>
+      <li class="top-buffer">Vet Last Name: {{ vet.last_name }}</li>
+      <li class="top-buffer">Vet License Type: {{ vet.license_type }}</li>
+      <li class="top-buffer">Vet License Number: {{ vet.license_number }}</li>
+      <li class="top-buffer">Vet Status: {{ vet.verification_status }}</li>
+      <li class="top-buffer">
+        Is Vet Pending?: {{ vet.is_vet_pending }} <br>
+        (True: pending to verify/   False: verified) </br>
+        Check the info of this vet: <a href="https://www.aavsb.org/public-resources/look-up-a-license/">Look up vet info</a>
+        <form action='/verifying' method="POST">
+            <input type="hidden" id="user_id" name="user_id" value={{user.user_id}}>
+            <input type="hidden" id="email" name="email" value={{user.email}}>
+            All info matched?
+            <button type="submit" class="btn btn-success" name="verification">Verify this vet</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+
 
 
 {% endblock %}

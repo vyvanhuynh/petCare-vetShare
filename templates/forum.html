@@ -93,11 +93,8 @@
         <div class="row gy-5">
         <div class="col-auto">
             <h2>Ask A Question</h2>
-            <div class="container-fluid">
+            <div class="container-fluid top-buffer">
                 <form id="question_form" action="/submit_question" method="POST" enctype="multipart/form-data">
-                    <p>
-                        Your question 
-                    </p>
                     <textarea type="text" name="new_question" id="new-question"></textarea>
                     <div class="p-1">
                         <input type="file" name="images-file" id="new-image">
@@ -118,8 +115,8 @@
                     <form class="d-flex" action="/forum" method="POST">
                         <input class="form-control me-2" type="text" name="key_word">
                         <button class="btn btn-outline-success" type="submit" name="new search">Search</button>
-                    </form>
-                    Please input a keyword to see matched questions
+                    </form> 
+                    <div class="col-12">Please input a keyword to see matched questions</div> 
                 </div>
             </nav>
 

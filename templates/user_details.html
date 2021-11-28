@@ -3,7 +3,7 @@
 {% block title %}{{ user.email }} - Details{% endblock %}
 
 {% block nav %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
   <div class="container-fluid">
     <a class="navbar-brand" href="/#">Pet Care Discussion Site</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,14 +21,17 @@
 {% endblock %}
 
 {% block body %}
-<h1>{{ user.email }}</h1>
 
-<p>
-   Is Admin: {{ user.is_admin }}
-</p>
-  
-<p>
-   Is Vet: {{ user.is_vet }}
-</p>
+<div class="row p-4">
+  <h1>{{ user.email }}</h1>
+</div>
 
+<div class="row p-4">
+  <div class="col-12">
+    <ul>
+      <li>Is Admin: {{ user.is_admin }}</li>
+      <li class="top-buffer">Is Vet: {{ user.is_vet }}</li>
+    </ul>
+  </div>
+</div>
 {% endblock %}

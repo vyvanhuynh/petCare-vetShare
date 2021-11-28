@@ -206,11 +206,13 @@ def submit_answer_vote():
     # search for questions based on keyword 
     if "new search" in request.form:
         keyword = str(request.form.get("key_word"))
+        matched_questions = crud.get_questions_by_keyword(keyword)
         if keyword == "":
             matched_questions = []
             flash(f"Please input a keyword to search for matched questions", "warning")
-        else:
-            matched_questions = crud.get_questions_by_keyword(keyword)
+        elif matched_questions == []:
+            flash(f"No matched result. Please try another keyword", "warning")
+
         return render_template('forum.html', questions=questions, matched_questions=matched_questions)
 
     # display all questions and answers in db
