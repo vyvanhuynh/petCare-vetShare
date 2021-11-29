@@ -15,43 +15,40 @@
     <header class="container-fluid d-flex justify-content-center align-items-center
         text" style="height: 939px;">
         <div class="row">
-            <div class="col-12 d-flex justify-content-center top-buffer">
-                <h1>Welcome to PetCare VetShare Forum</h1>
+            <div class="col-auto">
+                <h1>PetCare VetShare Forum</h1>
             </div>
         
-            <div class="row">
+            <div class="col-auto">
                 <form action="/login" method="POST">
                     <div class="row d-flex justify-content-center top-buffer">
-                        <div class="col-2 d-flex justify-content-center">
+                        <div class="col-5 d-flex justify-content-center">
                             <label for="email" class="form-label">Email address</label>
                         </div>
-                        <div class="col-3 d-flex justify-content-center">
+                        <div class="col-7 d-flex justify-content-center">
                             <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center top-buffer">
-                        <div class="col-2 d-flex justify-content-center">
+                        <div class="col-5 d-flex justify-content-center">
                             <label for="password" class="col-form-label">Password</label>
                         </div>
-                        <div class="col-3 d-flex justify-content-center">
+                        <div class="col-7 d-flex justify-content-center">
                             <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelpInline">
                         </div>
                     </div>
                     <div class="p-4 d-flex justify-content-center">
-                        
                         <button type="submit" class="btn btn-primary ">Log In</button>
-                        
                     </div>
                 </form>
-
-            </div> 
-            <div class="row">
-                <div class="col-12 d-flex justify-content-center">
-                    <h5>New to our forum?
-                        <a href="/register">Register</a>
-                    </h5>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h5>New to our forum?
+                            <a href="/register">Register</a>
+                        </h5>
+                    </div>
                 </div>
-            </div>
+            </div> 
         </div>
 
     </header>
