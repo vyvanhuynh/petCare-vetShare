@@ -5,51 +5,91 @@
 {% block nav %}{% endblock %}
 
 {% block body %}
-<div class="container overflow-hidden">
+<div class="override">
 
-    <div class="row p-5">
-        <div class="col-12 d-flex justify-content-center">
-            <h1>Welcome to Pet Care Vet Share Forum</h1>
-        </div>
+    <div class="background-video">
+        <video autoplay muted loop width height>
+            <source src="/static/images/bunny.mp4" type="video/mp4">
+        </video>
     </div>
+    <header class="container-fluid d-flex justify-content-center align-items-center
+        text" style="height: 939px;">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center top-buffer">
+                <h1>Welcome to Pet Care Vet Share Forum</h1>
+            </div>
+        
+            <div class="row">
+                <form action="/login" method="POST">
+                    <div class="row d-flex justify-content-center top-buffer">
+                        <div class="col-2 d-flex justify-content-center">
+                            <label for="email" class="form-label">Email address</label>
+                        </div>
+                        <div class="col-3 d-flex justify-content-center">
+                            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center top-buffer">
+                        <div class="col-2 d-flex justify-content-center">
+                            <label for="password" class="col-form-label">Password</label>
+                        </div>
+                        <div class="col-3 d-flex justify-content-center">
+                            <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelpInline">
+                        </div>
+                    </div>
+                    <div class="p-4 d-flex justify-content-center">
+                        
+                        <button type="submit" class="btn btn-primary ">Log In</button>
+                        
+                    </div>
+                </form>
 
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center top-buffer">
-        </div>
-        <div class="row d-flex justify-content-center">
-        <form action="/login" method="POST">
-            <div class="row d-flex justify-content-center top-buffer">
-                <div class="col-2 d-flex justify-content-center">
-                    <label for="email" class="form-label">Email address</label>
-                </div>
-                <div class="col-3 d-flex justify-content-center">
-                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+            </div> 
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <h5>New to our forum?
+                        <a href="/register">Register</a>
+                    </h5>
                 </div>
             </div>
-            <div class="row d-flex justify-content-center top-buffer">
-                <div class="col-2 d-flex justify-content-center">
-                    <label for="password" class="col-form-label">Password</label>
-                </div>
-                <div class="col-3 d-flex justify-content-center">
-                    <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelpInline">
-                </div>
-            </div>
-            <div class="p-4 d-flex justify-content-center">
-                
-                <button type="submit" class="btn btn-primary ">Log In</button>
-                
-            </div>
-        </form>
-        </div> 
-    </div>
-
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-        <h5>New to our forum?
-            <a href="/register">Register</a>
-        </h5>
         </div>
-    </div>
+
+    </header>
 
 </div>
+
+<script>
+    "use strict";
+    document.querySelector('.background-video video').addEventListener(
+        'click',
+        e => e.preventDefault()
+    );
+
+    function scaleVideo() {
+        const innerWidth = window.innerWidth;
+        const innerHeight = window.innerHeight;
+        if (innerWidth > innerHeight) {
+          document.querySelector('.background-video video').setAttribute('width', innerWidth);
+          document.querySelector('.background-video video').setAttribute('height', '');
+        } else {
+          document.querySelector('.background-video video').setAttribute('height', innerHeight);
+          document.querySelector('.background-video video').setAttribute('width', '');
+        }
+
+        // Also set the height of <header>, so that all your important content goes
+        // BELOW the video
+        const videoHeight = getComputedStyle(document.querySelector('.background-video video')).height;
+        document.querySelector('header').style.height = videoHeight;
+      }
+
+        // Wait for EVERYTHING to load before resizing the video. If we don't do
+        // this, the height is too short
+        //
+        // Caveat: this causes the page to look wonky on initial load.
+        window.onload = scaleVideo;
+
+        // Resize the video if the window is resized
+        window.onresize = scaleVideo
+
+</script>
 {% endblock %}

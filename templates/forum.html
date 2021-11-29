@@ -97,7 +97,8 @@
                 <form id="question_form" action="/submit_question" method="POST" enctype="multipart/form-data">
                     <textarea type="text" name="new_question" id="new-question"></textarea>
                     <div class="p-1">
-                        <input type="file" name="images-file" id="new-image">
+                        <input type="file" class="form-control" name="images-file" id="new-image">
+                        <label class="custom-file-label" for="new-image">Upload an image</label>
                     </div>
                     <div class="p-1">
                         <button type="submit" class="btn btn-outline-secondary" name="new question">Submit</button>
