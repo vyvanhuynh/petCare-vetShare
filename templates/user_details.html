@@ -10,30 +10,32 @@
 <div class="bg">
   <nav class="navbar navbar-expand-md navbar-transparent">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/#">Pet Care Discussion Site</a>
+      <a class="navbar-brand" href="/#" style="color:#440D13">PetCare VetShare</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav">
-          <a class="nav-link" href="/forum">Forum</a>
-          <a class="nav-link" href="/map">Lookup nearby vet</a>
-          <a class="nav-link" href="/admin">Admin Page</a>
+          <a class="nav-link" href="/forum" style="color:#440D13">Forum</a>
+          <a class="nav-link" href="/map" style="color:#440D13">Lookup nearby vet</a>
+          <a class="nav-link" href="/admin" style="color:#440D13">Admin Page</a>
         </div>
       </div>
     </div>
   </nav>
-  
+
   <div class="row p-4">
     <h1>{{ user.email }}</h1>
   </div>
 
   <div class="row p-4">
-    <div class="col-12">
-      <ul>
-        <li>Is Admin: {{ user.is_admin }}</li>
-        <li class="top-buffer">Is Vet: {{ user.is_vet }}</li>
-      </ul>
+    <div class="col-12 d-flex justify-content-center">
+      <div class="card" style="width: 12rem;">
+        <ul>
+          <li>Is Admin: {{ user.is_admin }}</li>
+          <li class="top-buffer">Is Vet: {{ user.is_vet }}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

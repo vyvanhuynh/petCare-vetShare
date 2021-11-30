@@ -10,15 +10,15 @@
 <div class="bg">
   <nav class="navbar navbar-expand-md navbar-transparent">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/#">Pet Care Discussion Site</a>
+      <a class="navbar-brand" href="/#" style="color:#440D13">PetCare VetShare</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav">
-          <a class="nav-link" href="/forum">Forum</a>
-          <a class="nav-link" href="/map">Lookup nearby vet</a>
-          <a class="nav-link" href="/admin">Admin Page</a>
+          <a class="nav-link" href="/forum" style="color:#440D13">Forum</a>
+          <a class="nav-link" href="/map" style="color:#440D13">Lookup nearby vet</a>
+          <a class="nav-link" href="/admin" style="color:#440D13">Admin Page</a>
         </div>
       </div>
     </div>
@@ -29,32 +29,44 @@
   </div>
 
   <div class="row p-4">
-    <div class="col-12">
-      <ul>
+    <div class="col-12 d-flex justify-content-center">
+      
+      
         <div class="row">
-          <div class="col-auto">
-            <li>Is Admin: {{ user.is_admin }}</li>
-            <li class="top-buffer">Is Vet: {{ user.is_vet }}</li>
-            <li class="top-buffer">Vet Last Name: {{ vet.last_name }}</li>
-            <li class="top-buffer">Vet License Type: {{ vet.license_type }}</li>
-            <li class="top-buffer">Vet License Number: {{ vet.license_number }}</li>
-            <li class="top-buffer">Vet Status: {{ vet.verification_status }}</li>
+          <div class="card" style="width: 24rem;">
+            <div class="col-auto">
+              <ul>
+                <li>Is Admin: {{ user.is_admin }}</li>
+                <li class="top-buffer">Registerd as Vet: {{ user.is_vet }}</li>
+                <li class="top-buffer">Vet Last Name: {{ vet.last_name }}</li>
+                <li class="top-buffer">Vet License Type: {{ vet.license_type }}</li>
+                <li class="top-buffer">Vet License Number: {{ vet.license_number }}</li>
+                <li class="top-buffer">Vet Status: {{ vet.verification_status }}</li>
+              </ul>
+            </div>
           </div>
-          <div class="col-auto">
-            <li class="top-buffer">
-              Is Vet Pending?: {{ vet.is_vet_pending }} <br>
-              (True: pending to verify/   False: verified) </br>
-              Check the info of this vet: <a href="https://www.aavsb.org/public-resources/look-up-a-license/">Look up vet info</a>
-              <form action='/verifying' method="POST">
-                  <input type="hidden" id="user_id" name="user_id" value={{user.user_id}}>
-                  <input type="hidden" id="email" name="email" value={{user.email}}>
-                  All info matched?
-                  <button type="submit" class="btn btn-success" name="verification">Verify this vet</button>
-              </form>
-            </li>
+
+          <div class="card text-center" style="width: 24rem;">
+            <div class="col-auto top-buffer">
+              
+                
+                  <p>Is Vet Pending?: {{ vet.is_vet_pending }} </p>
+                  <p>(True: pending to verify/   False: verified) </p>
+                  <p>Check the info of this vet: <a href="https://www.aavsb.org/public-resources/look-up-a-license/">Look up vet info</a></p>
+                  <form action='/verifying' method="POST">
+                      <input type="hidden" id="user_id" name="user_id" value={{user.user_id}}>
+                      <input type="hidden" id="email" name="email" value={{user.email}}>
+                      <p>All info matched?</p>
+                      <button type="submit" class="btn btn-outline-success" name="verification">Verify this vet</button> 
+                  </form>
+                
+              
+            </div>
           </div>
+
         </div>
-      </ul>
+      
+      
     </div>
   </div>
 </div>

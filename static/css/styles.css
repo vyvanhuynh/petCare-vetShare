@@ -1,13 +1,15 @@
 .top-buffer { margin-top:20px; }
 
 .answer-info {
-    color: gray;
+    color: rgb(170, 167, 167);
 }
 
 .vote-count {
-    color: green;
+    text-decoration: underline;
+    text-decoration-color: #FFF05A;
     font-weight: bold;
     font-size: x-large;
+    color:#440D13
 }
 
 #question_content {
@@ -16,7 +18,7 @@
 
 .nav-transparent {
     background: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
-    font-size: 1.2em;
+    font-size: 1.6em;
     z-index: 100;
   }
   
@@ -33,4 +35,42 @@ font-weight: bold;
 .nav-transparent .navbar-brand:hover,
 .nav-transparent .nav-link:hover {
 color: #ffec5c;
+}
+
+.btn-outline-dark, .btn-outline-dark:hover, .btn-outline-dark:active, .btn-outline-primary:visited {
+    background-color: #A77464!important;
+    border-color: #A77464!important;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.btn-outline-light, .btn-outline-light:hover, .btn-outline-light:active, .btn-outline-light:visited {
+    background-color: #A77464!important;
+    border-color: #A77464!important;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.btn-outline-secondary, .btn-outline-secondary:hover, .btn-outline-secondary:active, .btn-outline-secondary:visited {
+    border-color: #FFF05A!important;
+    background-color: #FFF05A!important;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.btn-outline-success, .btn-outline-success:hover, .btn-outline-success:active, .btn-outline-success:visited {
+    border-color: #A2A79E!important;
+    background-color: #A2A79E!important;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+body { font-family: "Lato", sans-serif; 
+    color: #440D13;}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Lato", serif;
+  font-weight:  700;
+  color: #440D13;
+}
+
+
+a {
+    color: #A77464
 }

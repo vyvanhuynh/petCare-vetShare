@@ -12,16 +12,17 @@
 
 {% block body %}
 <div class="bg-forum">
+    <!-- Nav bar -->
     <nav class="navbar navbar-expand-lg navbar-transparent w-100">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/#">Pet Care Discussion Forum</a>
+          <a class="navbar-brand" href="/#" style="color:#440D13">PetCare VetShare</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav">
-              <a class="nav-link" href="/forum">Forum</a>
-              <a class="nav-link" href="/map">Lookup nearby vet</a>
+              <a class="nav-link" href="/forum" style="color:#440D13">Forum</a>
+              <a class="nav-link" href="/map" style="color:#440D13">Lookup nearby vet</a>
             </div>
           </div>
         </div>
@@ -37,7 +38,7 @@
 
             <!-- Display all Question and Answer contents-->
             <div class="col-6 col-md-12 p-4" id="quesans">
-                <h2>All Questions and Answers</h2> 
+                <h2>Questions</h2> 
 
                 <ul style="list-style-type: none;">
                     {% for question in questions|sort(attribute='vote_count', reverse = True) %}
@@ -60,14 +61,14 @@
                                     </div>
                                     <!-- Handle votes -->
                                     <div class="col-2">
-                                        <button type="submit" class="btn btn-success" name="new vote">Helpful</button>
+                                        <button type="submit" class="btn btn-outline-secondary" name="new vote">Helpful</button>
                                     </div>
                                     <div class="col-1 d-flex justify-content-center vote-count">{{ question.vote_count }}</div>
                                 </div>
 
                                 <!-- Display answers as collapse -->
                                 <div>
-                                    <button class="btn btn-info p-2" type="button" data-bs-toggle="collapse" 
+                                    <button class="btn btn-outline-light p-2" type="button" data-bs-toggle="collapse" 
                                         data-bs-target="#collapseAnswer_{{ loop.index }}" aria-expanded="false" aria-controls="collapseAnswer_{{ loop.index }}">
                                         Show answers
                                     </button>
@@ -88,8 +89,8 @@
 
                                 <!-- Input new answers -->
                                 <div class="p-2">
-                                    Your answer <input type="text" name="new_answer" id="new-answer">
-                                    <button type="submit" class="btn btn-outline-secondary" name="new answer">Submit</button>
+                                    Answer <input type="text" name="new_answer" id="new-answer">
+                                    <button type="submit" class="btn btn-outline-success" name="new answer">Submit</button>
                                 </div>
                             
                             </form>
@@ -109,7 +110,7 @@
         <div class="col-6 col-md-6 p-4">
             <div class="row gy-5">
             <div class="col-auto">
-                <h2>Ask A Question</h2>
+                <h2>Ask a Question</h2>
                 <div class="container-fluid top-buffer">
                     <form id="question_form" action="/submit_question" method="POST" enctype="multipart/form-data">
                         <textarea type="text" name="new_question" id="new-question"></textarea>
@@ -118,7 +119,7 @@
                             <label class="custom-file-label" for="new-image">Upload an image</label>
                         </div>
                         <div class="p-1">
-                            <button type="submit" class="btn btn-outline-secondary" name="new question">Submit</button>
+                            <button type="submit" class="btn btn-outline-success" name="new question">Submit</button>
                         </div>
                     </form>
                     <script src="/static/js/submit-question.js"></script>
@@ -161,14 +162,14 @@
                                         </div>
                                         <!-- Handle votes -->
                                         <div class="col-2">
-                                            <button type="submit" class="btn btn-success" name="new vote">Helpful</button>
+                                            <button type="submit" class="btn btn-outline-secondary" name="new vote">Helpful</button>
                                         </div>
                                         <div class="col-1 d-flex justify-content-center vote-count">{{ matched_question.vote_count }}</div>
                                     </div>
 
                                     <!-- Display answers as collapse -->
                                     <div>
-                                        <button class="btn btn-info p-2" type="button" data-bs-toggle="collapse" 
+                                        <button class="btn btn-outline-light p-2" type="button" data-bs-toggle="collapse" 
                                             data-bs-target="#collapseMatchedAnswer_{{ loop.index }}" aria-expanded="false" aria-controls="collapseMatchedAnswer_{{ loop.index }}">
                                             Show answers
                                         </button>
@@ -189,8 +190,8 @@
 
                                     <!-- Input new answers -->
                                     <div class="p-2">
-                                        Your answer <input type="text" name="new_answer" id="new-answer">
-                                        <button type="submit" class="btn btn-outline-secondary" name="new answer">Submit</button>
+                                        Answer <input type="text" name="new_answer" id="new-answer">
+                                        <button type="submit" class="btn btn-outline-success" name="new answer">Submit</button>
                                     </div>
                                 
                                 </form>
@@ -204,7 +205,7 @@
                 <!-- the link to lookup nearby vets -->
                 <div>
                     <h4>
-                        Do you need to look up a vet nearby?
+                        Do you need to find a vet?
                         <a href="/map">Look up nearby vet</a>
                     </h4>
                 </div>
