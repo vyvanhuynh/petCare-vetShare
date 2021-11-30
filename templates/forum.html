@@ -7,159 +7,75 @@
     integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
     crossorigin="anonymous">
 </script>
+<link rel="stylesheet" href="/static/css/background.css">
 {% endblock %}
 
 {% block body %}
-<div class="row p-4">
-    <h1>PetCare VetShare Forum</h1>
-</div>
-
-<div class="row">
-
-    <div class="col-6 col-md-6">
-
-        <!-- Display all Question and Answer contents-->
-        <div class="col-6 col-md-12 p-4" id="quesans">
-            <h2>All Questions and Answers</h2> 
-
-            <ul style="list-style-type: none;">
-                {% for question in questions|sort(attribute='vote_count', reverse = True) %}
-                    <div class="row align-items-center p-3">
-                    <span class="rounded border border-3 border-secondary">
-                    <li>
-                        
-                        <form id="vote_answer_form" action="/forum" method="POST">
-                            
-                            <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
-                            
-                            <div class ="row p-2">
-                                <div class="col-9">
-                                    <div class="bg-light text-dark" id="question_content">
-                                        {{ question.question_body }}
-                                    </div>
-                                    {% if question.img_url %}
-                                        <img src="{{ question.img_url }}" class="img-thumbnail">
-                                    {% endif %}
-                                </div>
-                                <!-- Handle votes -->
-                                <div class="col-2">
-                                    <button type="submit" class="btn btn-success" name="new vote">Helpful</button>
-                                </div>
-                                <div class="col-1 d-flex justify-content-center vote-count">{{ question.vote_count }}</div>
-                            </div>
-
-                            <!-- Display answers as collapse -->
-                            <div>
-                                <button class="btn btn-info p-2" type="button" data-bs-toggle="collapse" 
-                                    data-bs-target="#collapseAnswer_{{ loop.index }}" aria-expanded="false" aria-controls="collapseAnswer_{{ loop.index }}">
-                                    Show answers
-                                </button>
-                            </div>
-                            <div class="row collapse p-2" id="collapseAnswer_{{ loop.index }}">
-                            <div class="card card-body">
-                                <ul>
-                                    {% for answer in question.answers %}
-                                    <li>{{ answer.answer_body }}. 
-                                        <div class="answer-info">
-                                            answered by Dr. {{ answer.vet.last_name }}
-                                        </div>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            </div>
-
-                            <!-- Input new answers -->
-                            <div class="p-2">
-                                Your answer <input type="text" name="new_answer" id="new-answer">
-                                <button type="submit" class="btn btn-outline-secondary" name="new answer">Submit</button>
-                            </div>
-                        
-                        </form>
-                        
-                    </li>
-                    </span>
-                    </div>
-                {% endfor %}
-            </ul>
-
+<div class="bg-forum">
+    <nav class="navbar navbar-expand-lg navbar-transparent w-100">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/#">Pet Care Discussion Forum</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav">
+              <a class="nav-link" href="/forum">Forum</a>
+              <a class="nav-link" href="/map">Lookup nearby vet</a>
+            </div>
+          </div>
         </div>
+      </nav>
+      
+    <div class="row p-4">
+        <h1>PetCare VetShare Forum</h1>
     </div>
 
+    <div class="row">
 
-    <!-- Let users input a new question -->
-    
-    <div class="col-6 col-md-6 p-4">
-        <div class="row gy-5">
-        <div class="col-auto">
-            <h2>Ask A Question</h2>
-            <div class="container-fluid top-buffer">
-                <form id="question_form" action="/submit_question" method="POST" enctype="multipart/form-data">
-                    <textarea type="text" name="new_question" id="new-question"></textarea>
-                    <div class="p-1">
-                        <input type="file" class="form-control" name="images-file" id="new-image">
-                        <label class="custom-file-label" for="new-image">Upload an image</label>
-                    </div>
-                    <div class="p-1">
-                        <button type="submit" class="btn btn-outline-secondary" name="new question">Submit</button>
-                    </div>
-                </form>
-                <script src="/static/js/submit-question.js"></script>
-            </div>
-        </div>
+        <div class="col-6 col-md-6">
 
-        <div class="col-auto">
-            <h2>Search Question</h2>
-            <!-- Search bar -->
-            <nav class="navbar">
-                <div class="container-fluid">
-                    <form class="d-flex" action="/forum" method="POST">
-                        <input class="form-control me-2" type="text" name="key_word">
-                        <button class="btn btn-outline-success" type="submit" name="new search">Search</button>
-                    </form> 
-                    <div class="col-12">Please input a keyword to see matched questions</div> 
-                </div>
-            </nav>
+            <!-- Display all Question and Answer contents-->
+            <div class="col-6 col-md-12 p-4" id="quesans">
+                <h2>All Questions and Answers</h2> 
 
-            <!-- Display only matched Question and Answer contents according to search result-->
-
-            <ul style="list-style-type: none;">
-                {% for matched_question in matched_questions|sort(attribute='vote_count', reverse = True) %}
-                    <div class="row align-items-center p-3">
+                <ul style="list-style-type: none;">
+                    {% for question in questions|sort(attribute='vote_count', reverse = True) %}
+                        <div class="row align-items-center p-3">
                         <span class="rounded border border-3 border-secondary">
                         <li>
                             
                             <form id="vote_answer_form" action="/forum" method="POST">
                                 
-                                <input type="hidden" id="question_id" name="question_id" value={{matched_question.question_id}}>
+                                <input type="hidden" id="question_id" name="question_id" value={{question.question_id}}>
                                 
                                 <div class ="row p-2">
-                                    <div class="col-8">
+                                    <div class="col-9">
                                         <div class="bg-light text-dark" id="question_content">
-                                            {{ matched_question.question_body }}
+                                            {{ question.question_body }}
                                         </div>
-                                        {% if matched_question.img_url %}
-                                            <img src="{{ matched_question.img_url }}" class="img-thumbnail">
+                                        {% if question.img_url %}
+                                            <img src="{{ question.img_url }}" class="img-thumbnail">
                                         {% endif %}
                                     </div>
                                     <!-- Handle votes -->
                                     <div class="col-2">
                                         <button type="submit" class="btn btn-success" name="new vote">Helpful</button>
                                     </div>
-                                    <div class="col-1 d-flex justify-content-center vote-count">{{ matched_question.vote_count }}</div>
+                                    <div class="col-1 d-flex justify-content-center vote-count">{{ question.vote_count }}</div>
                                 </div>
 
                                 <!-- Display answers as collapse -->
                                 <div>
                                     <button class="btn btn-info p-2" type="button" data-bs-toggle="collapse" 
-                                        data-bs-target="#collapseMatchedAnswer_{{ loop.index }}" aria-expanded="false" aria-controls="collapseMatchedAnswer_{{ loop.index }}">
+                                        data-bs-target="#collapseAnswer_{{ loop.index }}" aria-expanded="false" aria-controls="collapseAnswer_{{ loop.index }}">
                                         Show answers
                                     </button>
                                 </div>
-                                <div class="row collapse p-2" id="collapseMatchedAnswer_{{ loop.index }}">
+                                <div class="row collapse p-2" id="collapseAnswer_{{ loop.index }}">
                                 <div class="card card-body">
                                     <ul>
-                                        {% for answer in matched_question.answers %}
+                                        {% for answer in question.answers %}
                                         <li>{{ answer.answer_body }}. 
                                             <div class="answer-info">
                                                 answered by Dr. {{ answer.vet.last_name }}
@@ -181,23 +97,124 @@
                         </li>
                         </span>
                         </div>
-                {% endfor %}
-            </ul>
+                    {% endfor %}
+                </ul>
 
-            <!-- the link to lookup nearby vets -->
-            <div>
-                <h4>
-                    Do you need to look up a vet nearby?
-                    <a href="/map">Look up nearby vet</a>
-                </h4>
             </div>
         </div>
-        </div>
-    </div>
 
-</div>
+
+        <!-- Let users input a new question -->
+        
+        <div class="col-6 col-md-6 p-4">
+            <div class="row gy-5">
+            <div class="col-auto">
+                <h2>Ask A Question</h2>
+                <div class="container-fluid top-buffer">
+                    <form id="question_form" action="/submit_question" method="POST" enctype="multipart/form-data">
+                        <textarea type="text" name="new_question" id="new-question"></textarea>
+                        <div class="p-1">
+                            <input type="file" class="form-control" name="images-file" id="new-image">
+                            <label class="custom-file-label" for="new-image">Upload an image</label>
+                        </div>
+                        <div class="p-1">
+                            <button type="submit" class="btn btn-outline-secondary" name="new question">Submit</button>
+                        </div>
+                    </form>
+                    <script src="/static/js/submit-question.js"></script>
+                </div>
+            </div>
+
+            <div class="col-auto">
+                <h2>Search Question</h2>
+                <!-- Search bar -->
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <form class="d-flex" action="/forum" method="POST">
+                            <input class="form-control me-2" type="text" name="key_word">
+                            <button class="btn btn-outline-success" type="submit" name="new search">Search</button>
+                        </form> 
+                        <div class="col-12">Please input a keyword to see matched questions</div> 
+                    </div>
+                </nav>
+
+                <!-- Display only matched Question and Answer contents according to search result-->
+
+                <ul style="list-style-type: none;">
+                    {% for matched_question in matched_questions|sort(attribute='vote_count', reverse = True) %}
+                        <div class="row align-items-center p-3">
+                            <span class="rounded border border-3 border-secondary">
+                            <li>
+                                
+                                <form id="vote_answer_form" action="/forum" method="POST">
+                                    
+                                    <input type="hidden" id="question_id" name="question_id" value={{matched_question.question_id}}>
+                                    
+                                    <div class ="row p-2">
+                                        <div class="col-8">
+                                            <div class="bg-light text-dark" id="question_content">
+                                                {{ matched_question.question_body }}
+                                            </div>
+                                            {% if matched_question.img_url %}
+                                                <img src="{{ matched_question.img_url }}" class="img-thumbnail">
+                                            {% endif %}
+                                        </div>
+                                        <!-- Handle votes -->
+                                        <div class="col-2">
+                                            <button type="submit" class="btn btn-success" name="new vote">Helpful</button>
+                                        </div>
+                                        <div class="col-1 d-flex justify-content-center vote-count">{{ matched_question.vote_count }}</div>
+                                    </div>
+
+                                    <!-- Display answers as collapse -->
+                                    <div>
+                                        <button class="btn btn-info p-2" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#collapseMatchedAnswer_{{ loop.index }}" aria-expanded="false" aria-controls="collapseMatchedAnswer_{{ loop.index }}">
+                                            Show answers
+                                        </button>
+                                    </div>
+                                    <div class="row collapse p-2" id="collapseMatchedAnswer_{{ loop.index }}">
+                                    <div class="card card-body">
+                                        <ul>
+                                            {% for answer in matched_question.answers %}
+                                            <li>{{ answer.answer_body }}. 
+                                                <div class="answer-info">
+                                                    answered by Dr. {{ answer.vet.last_name }}
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    </div>
+
+                                    <!-- Input new answers -->
+                                    <div class="p-2">
+                                        Your answer <input type="text" name="new_answer" id="new-answer">
+                                        <button type="submit" class="btn btn-outline-secondary" name="new answer">Submit</button>
+                                    </div>
+                                
+                                </form>
+                                
+                            </li>
+                            </span>
+                            </div>
+                    {% endfor %}
+                </ul>
+
+                <!-- the link to lookup nearby vets -->
+                <div>
+                    <h4>
+                        Do you need to look up a vet nearby?
+                        <a href="/map">Look up nearby vet</a>
+                    </h4>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
  
-    
+</div>   
 {% endblock %}
 
     

@@ -1,45 +1,61 @@
 {% extends 'base.html' %}
 {% block title %}Admin Page{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="/static/css/background.css">
+{% endblock %}
 
 {% block body %}
-
-<div class="row p-4">
-  <h1>Admin Page</h1>
-</div>
-
-<div class="row p-4">
-  <div class="col-6 d-flex justify-content-center">
-    <div class="row top-buffer">
-      <h2>All Users</h2>
-    
-      <div class="col top-buffer">
-        {% for user in users %}
-        <div class="users col-12">
-          <a href="/admin/{{user.email}}">
-            {{user.email}}
-          </a>
+<div class="bg">
+  <!-- Nav bar -->
+  <nav class="navbar navbar-expand-md navbar-transparent w-100">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/#">Pet Care Discussion Forum</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav">
+          <a class="nav-link" href="/forum">Forum</a>
+          <a class="nav-link" href="/map">Lookup nearby vet</a>
         </div>
-        {% endfor %}
+      </div>
+    </div>
+  </nav>
+
+  <div class="row p-4">
+    <h1>Admin Page</h1>
+  </div>
+
+  <div class="row p-4">
+    <div class="col-6 d-flex justify-content-center">
+      <div class="card text-center" style="width: 18rem;">
+        <div class="card-header">All Users</div>
+        <div class="card-body">
+          {% for user in users %}
+          <div class="card-text users col-12">
+            <a href="/admin/{{user.email}}">
+              {{user.email}}
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 d-flex justify-content-center">
+      <div class="card text-center" style="width: 18rem;">
+          <div class="card-header">All Vets</div>
+        <div class="card-body">
+          {% for vet_user in vets %}
+          <div class="card-text vets col-12">
+            <a href="/admin/{{vet_user.email}}">
+              {{vet_user.email}}
+            </a>
+          </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="col-6">
-    <div class="row top-buffer">
-      
-        <h2>All Vets</h2>
-     
-      <div class="col-12 top-buffer">
-        {% for vet_user in vets %}
-        <div class="vets col-12">
-          <a href="/admin/{{vet_user.email}}">
-            {{vet_user.email}}
-          </a>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
 </div>
-
 {% endblock %}

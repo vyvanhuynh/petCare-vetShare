@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Registration Form{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="/static/css/background.css">
+{% endblock %}
 {% block nav %}{% endblock %}
 
 {% block body %}
+<div class="bg">
 <div class="row p-5">
     <div class="col-12 d-flex justify-content-center">
         <h1>Registration</h1>
@@ -48,5 +52,6 @@
        
     </div>
 
+</div>
 </div>
 {% endblock %}
