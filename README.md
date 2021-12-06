@@ -47,6 +47,6 @@ Lastly, users can search for nearby vets based on their current location
 
 ## For 2.0 Version
 
-- ** Pagination on forum page to avoid scrolling
-- ** Questions are organized in categories based on pet types and/or specific concerns (e.g., diets)
-- ** User profile and pet profile
+- Pagination on forum page to avoid scrolling
+- Questions are organized in categories based on pet types and/or specific concerns (e.g., diets)
+- User profile and pet profile
