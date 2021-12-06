@@ -44,3 +44,9 @@ Only verified vets can answer questions. Once registering as a vet, the status o
 
 Lastly, users can search for nearby vets based on their current location 
 ![alt text](static/images/_readme-img/map-page.png "Nearby vet map")
+
+## For 2.0 Version
+
+- ** Pagination on forum page to avoid scrolling
+- ** Questions are organized in categories based on pet types and/or specific concerns (e.g., diets)
+- ** User profile and pet profile
