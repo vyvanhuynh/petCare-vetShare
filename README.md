@@ -20,3 +20,8 @@
 - Python unittest module
 - Google Maps API
 - Cloudinary API
+
+## Features
+
+![alt text](static/images/_readme-img/login-page.png "PetCare VetShare Login")
+

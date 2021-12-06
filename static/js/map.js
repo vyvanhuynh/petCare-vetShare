@@ -52,7 +52,7 @@ function getVetNearby(position){
   let nearbyRequest = {
     location: position,
     bounds: map.getBounds(),
-    keyword: ['vet', 'veterinary clinic', 'animal hospital', 'pet hospital'],
+    keyword: ['pets hospital'],
   }
 
   // PlacesService is a class that 
